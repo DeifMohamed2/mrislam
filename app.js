@@ -87,8 +87,24 @@ app.use('/student', studentRoutes)
 
 
 
+const Excel = require('exceljs');
+
+
 app.post("/teacher/uploadVideo", async (req, res) => {
     console.log(req.files);
+
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Video Data');
+
+    const headerRow = worksheet.addRow(['#', 'User Name', 'Student Code', 'Student Phone', 'Parent Phone']);
+ 
+    const excelBuffer = await workbook.xlsx.writeBuffer();
+
+    // Set response headers for file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=users_data.xlsx');
+
+    // Send Excel file as response
 
     if (!req.files || !req.files.filetoupload) {
         return res.status(400).send('No files were uploaded.');
@@ -217,7 +233,7 @@ app.post("/teacher/uploadVideo", async (req, res) => {
 
 
 
-
+    res.send(excelBuffer)
 
 }
 );
