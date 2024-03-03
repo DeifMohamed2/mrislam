@@ -1,10 +1,5 @@
 
-body{
-  background: #000000;
-background: -webkit-linear-gradient(170deg, #000000 0%, #4a4a4a 100%);
-background: linear-gradient(170deg, #000000 0%, #4a4a4a 100%);
 
-}
 .contact__container {
   background: var(--color-bg1);
   display: grid;
