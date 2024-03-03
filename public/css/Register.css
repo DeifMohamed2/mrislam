@@ -133,7 +133,7 @@ input:focus{
 .contact__form input,select {
   width: 50%;
   font-size: large;
-  border: 1px solid #b8b8b8d7;
+  border: 1px solid #ffffffd7;
   margin: 0.7rem 0;
 }
 .contact__form input:focus,select:focus {
@@ -184,7 +184,7 @@ input[type="radio"] {
   .contact__form input,select {
     width: 100%;
     font-size: large;
-    border: 1px solid #b8b8b8d7;
+    border: 1px solid #ffffffd7;
     margin: 0.7rem 0;
   }
   .contact {
