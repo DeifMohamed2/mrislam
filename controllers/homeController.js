@@ -31,7 +31,7 @@ const public_login_post = async (req, res) => {
 
     const user = await User.findOne({
       $or: [
-        { Email: emailOrPhone },
+       
         { phone: emailOrPhone } 
       ]
     });
@@ -145,10 +145,12 @@ const public_Register_post = async (req, res) => {
 
   let quizesInfo = []
   let videosInfo = []
+  let userName 
   if (Grade ==="Grade1") {
-    await User.findOne({Grade:Grade,Code:639818}).then((result)=>{
+    await User.findOne({Grade:Grade,Code:653361}).then((result)=>{
       quizesInfo = result.quizesInfo
       videosInfo = result.videosInfo
+      userName = result.Username
     })
   }else if(Grade ==="Grade2"){
     await User.findOne({Grade:Grade,Code:660498}).then((result)=>{
@@ -168,7 +170,7 @@ const public_Register_post = async (req, res) => {
 
   try {
     const user =  new User({
-      Username:Username,
+      Username:userName,
       Password:hashedPassword,
       gov:gov,
       Markez:Markez,
