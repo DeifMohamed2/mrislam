@@ -1,18 +1,18 @@
 /* Root VARAIBLES */
 :root {
-  --color-primary: #fec900;
+  --color-primary: #fe9720;
   --color-danger: #ff7782;
   --color-success: #41f1b6;
   --color-warning: #ffbb55;
-  --color-white: #202528;
+  --color-white: #fff;
   --color-info-dark: #7d8da1;
   --color-info-light: #dce1eb;
 
-  --color-dark: #edeffd;
-  --color-light: rgba(0, 0, 0, 0.4);
+  --color-dark: #363949;
+  --color-light: rgba(132, 139, 200, 0.18);
   --color-primary-variant: #111e88;
-  --color-dark-variant: #a3bdcc;
-  --color-background: #181a1e;
+  --color-dark-variant: #677483;
+  --color-background: #f6f6f9;
   --card-border-radius: 2rem;
   --border-radius-1: 0.4rem;
   --border-radius-2: 0.8rem;
