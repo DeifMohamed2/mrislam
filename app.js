@@ -29,7 +29,7 @@ const path = require('path');
 
 // CONECT to mongodb
 let io
-const dbURI = "mongodb+srv://3devWay:1qaz2wsx@cluster0.5orkagp.mongodb.net/MrIslam?retryWrites=true&w=majority&appName=Cluster0"
+const dbURI = ""
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {
         let server = app.listen(8800);
