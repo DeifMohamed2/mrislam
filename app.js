@@ -28,7 +28,7 @@ const path = require('path');
 
 // CONECT to mongodb
 let io
-const dbURI = process.env.MONGODB_URI
+const dbURI = 'mongodb+srv://deifm:test12345@cluster0.5orkagp.mongodb.net/node-tuts'
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {
         let server = app.listen(8800);
