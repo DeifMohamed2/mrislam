@@ -143,6 +143,27 @@ const public_Register_post = async (req, res) => {
 
   // auth Of jwt
 
+  let quizesInfo = []
+  let videosInfo = []
+  if (Grade ==="Grade1") {
+    await User.findOne({Grade:Grade,Code:639818}).then((result)=>{
+      quizesInfo = result.quizesInfo
+      videosInfo = result.videosInfo
+    })
+  }else if(Grade ==="Grade2"){
+    await User.findOne({Grade:Grade,Code:660498}).then((result)=>{
+      quizesInfo = result.quizesInfo
+      videosInfo = result.videosInfo
+    })
+  }else if(Grade ==="Grade3"){
+    await User.findOne({Grade:Grade,Code:971001}).then((result)=>{
+      quizesInfo = result.quizesInfo
+      videosInfo = result.videosInfo
+    })
+  }
+
+
+
   const hashedPassword = await bcrypt.hash(Password,10)
 
   try {
@@ -159,8 +180,8 @@ const public_Register_post = async (req, res) => {
       place:place,
       Code:Code,
       subscribe :false,
-      quizesInfo :[],
-      videosInfo : [],
+      quizesInfo :quizesInfo,
+      videosInfo : videosInfo,
       totalScore:0,
       examsEnterd:0,
       totalQuestions:0,
