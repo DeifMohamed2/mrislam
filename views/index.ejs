@@ -1,130 +1,214 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<%- include("./partials/head.ejs") %>
+    <%- include("./partials/nav.ejs") %>
+
+
+
 
 <body>
-  <%- include("./partials/nav.ejs") %>
-
-    
+ 
     <!--========================== END OF NAVBAR ============================-->
     <header>
-      <div class="container header__container" dir="ltr">
-          <div class="header__left box-left animate__animated animate__fadeInLeft ">
-              <h1 style="  font-family: Righteous;  ">Be_Original_Not_A_Copy</h1>
-              <p style="font-size: 1.4rem; font-family: Righteous; "> 
-            yfasfafa are now fasf!ffasfasfasfffaf
-            fa
-              </p>
-              <a href="/login" class="btn btn-primary box-left ">Log In </a><span class="aw">or</span>
-              <a  id="Features" class="btn btn-secondey box-left">اضغط هنا للتعرف علي جميع المزايا</a>
-          </div>
-          <div class="header__right  box-right  animate__animated  animate__fadeInRight">
-              <div class="bubbles ">
-                  <span class="bub a "> <img src="/images/dna.svg"  alt="DNA"></span>
-                  <span class="bub b "> <img src="/images/logo.png" style="border-radius: 55%; width: 50px; " alt="logo"></span>
-                  <span class="bub c "> <img src="/images/book.svg" alt="book"></span>
-              </div>
-              <div class="header__right-image">
-                  <img src="/images/dd.png"  >
-              </div>
-          </div>
-      </div>
-  </header>
+        <div class="container header__container">
+            <div class="header__left box-right  animate__animated animate__fadeInRight ">
+                <h1> الفلسفة هى فن التحدث عن التفاحة بدلا من أكلها . </h1>
+                <p>
+                    تجربة فريدة لتعلم ممتع 
+                    قم بتسجيل الدخول و استمتع بالتعلم كما لم تراه من قبل
+                </p>
+                <a href="/login" class="btn btn-primary box-right " style="color: #fff !important;">سجل الدخول</a><span class="aw">او</span>
+                <a  id="Features" class="btn btn-secondey box-right">اضغط هنا للتعرف علي جميع المزايا</a>
+            </div>
+            <div class="header__right box-left animate__animated animate__fadeInLeft">
+                <div class="bubbles ">
+                    <span class="bub a "> <img src="images/icon3.png" alt="DNA"></span>
+                    <span class="bub b "> <img src="images/icon5.png" alt="flask"></span>
+                    <span class="bub c "> <img src="images/brain.png" alt="book"></span>
+                </div>
+                <div class="header__right-image">
+                    <img src="images/Logo-02.png">
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <!--========================== END OF HEADER ============================-->
+
+
+    <!--========================== END OF HEADER ============================-->
 
 <main>
-  <section class="categories">
-      <div class="container categories__container">
-          <div class="categories__left box-right">
-              <h1> اماكن تواجدنا</h1>
-              <p>
-                  يمكنك من هنا التعرف علي جميع مواعيد دكتور علاء او يمكنك الحجز اون لاين عن طريق الحجز الالكتروني
-              </p>
-              <a href="/Register" class="btn info "> حجز الكتروني </a>
-          </div>
+    <section class="categories">
+        <div class="container categories__container">
+            <div class="categories__left box-right">
+                <h1>الاماكن</h1>
+                <p>
+                    يمكنك من هنا التعرف علي جميع اماكن مستر اسلام عبد الحميد او يمكنك الحجز اون لاين عن طريق الحجز الالكتروني
+                </p>
+                <a href="/Register" class="btn info "> حجز الكتروني </a>
+            </div>
 
-          <div class="categories__right ">
-              <article class="category box-left" >
+            <div class="categories__right ">
+                <article class="category box-left"  >
+                   
+                    <h3>القناطر الخيرية</h3>
+                  
+                    <ul class="teachers-info">
+                       <!-- <h4>الاول الثانوي  </h4>
+                        <li style="font-weight: bolder; margin-top: 0.5rem;"> الاحد 6:00pm </li>
+                        <li style="font-weight: bolder; margin-bottom: 0.3rem;">الخميس 3:30pm</li>
+                        <h4>الثاني الثانوي  </h4>
+                        <li style="font-weight: bolder; margin-top: 0.5rem; ">الأحد 4:00pm</li>
+                        <li style="font-weight: bolder; ">الخميس 5:30pm</li> -->
+                    </ul>
+                </article>
                 
-                  <h3>القناطر الخيريه <span style="display: block;"></span></h3>
-                
+                <article class="category box-left">
+                  
+                    <h3>قليوب</h3>
+
+                    <ul class="teachers-info">
+                        <!-- <h4>الاول الثانوي  </h4>
+                        <li style="font-weight: bolder; margin: 0.5rem auto; "> الاثنين 5:30pm </li>
+                        <h4>الثاني الثانوي  </h4>
+                        <li style="font-weight: bolder; margin-top: 0.5rem;"> الاثنين 3:30pm </li> -->
+                    </ul>
+                </article>
+
+                <article class="category box-left">
+                  
+                    <h3>أكتوبر </h3>
+
+                    <ul class="teachers-info">
+                        <!-- <h4>الاول الثانوي  </h4>
+                        <li style="font-weight: bolder; margin-top: 0.5rem;"> السبت 2:00pm </li>
+                        <h4>الثاني الثانوي  </h4>
+                        <li style="font-weight: bolder; margin-top: 0.5rem;"> السبت 12:00pm </li> -->
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!--====================== END OF CATEGORIES =====================-->
+
+   <section class="featuers" id="featuers">
+    <div class="container">
+        <div class="featuers-title text-center ">
+            <h2>
+                <i class="fas fa-graduation-cap"></i>
+                 تعرف علي جميع المزايا 
+            </h2>
+        </div>
+        <ul class="timeline">
+            <li>
+                <div class="timebox">
+                    <h4> امتحانات الكترونية اسبوعية </h4>
+                    <p>
+                        امتحان اسبوعي علي كل حصه والي بيساعدك انك تحل اكبر عدد من الاسئله وتكون جاهز لامتحانات اكبر
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="timebox">
+                    <h4>  فيدوهات تعليمية  </h4>
+                    <p>
+                        فيدوهات تعليمية باعلي جوده ومؤمنه بشكل كامل
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="timebox">
+                    <h4>  مسابقات وجوائز   </h4>
+                    <p>
+                        مسابقات بين الطلاب بشكل دوري حتي يتم تحفيز الطالب علي المذاكرة بجِد والاستعداد دائما
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="timebox">
+                    <h4> تجربه سلسه وممتعه في الاستخدام</h4>
+                    <p>
+                        تم اختيار كل شيء لكي يكون مهيء للتعليم الالكتروني بشكل سلس من الالوان وحتي اختيار اماكن الازرار
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </section>
+     <!--========================== END OF TEAM ============================-->
+    
+    
        
-              </article>
-              
-              <article class="category box-left">
-      
-                  <h3 class="mx-auto">قليوب <span style="display: block;  "></span></h3>
-
-              </article>
-              <article class="category box-left">
-             
-                  <h3>الجيزه <span style="display: block; "></span></h3>
-              </article>
-          </div>
-      </div>
-  </section>
-
-  <!--====================== END OF CATEGORIES =====================-->
 
 
- <section class="featuers" id="featuers">
-  <div class="container">
-      <div class="featuers-title text-center ">
-          <h2>
-              <i class="fas fa-graduation-cap"></i>
-               تعرف علي جميع المزايا 
-          </h2>
-      </div>
-      <ul class="timeline">
-          <li>
-              <div class="timebox">
-                  <h4> امتحانات الكترونية اسبوعية </h4>
-                  <p>
-                      امتحان اسبوعي علي كل حصه والي بيساعدك انك تحل اكبر عدد من الاسئله وتكون جاهز لامتحانات الاكبر
-                  </p>
-              </div>
-          </li>
-          <li>
-              <div class="timebox">
-                  <h4>  فيدوهات تعليمية  </h4>
-                  <p>
-                      فيدوهات تعليمة باعلي جوده ومؤمنة بشكل كامل
-                  </p>
-              </div>
-          </li>
-          <li>
-              <div class="timebox">
-                  <h4>  مسابقات وجوائز   </h4>
-                  <p>
-                      مسابقات بين الطلاب بشكل دوري حتي يتم تحفيز الطالب علي المذاكرة بجد والاستعداد دائما
-                  </p>
-              </div>
-          </li>
-          <li>
-              <div class="timebox">
-                  <h4> تجربه سلسه وممتعه في الاستخدام</h4>
-                  <p>
-                      تم اختيار كل شيء لكي يكون مهيء للتعليم الالكتروني بشكل سلس من الالوان وحتي اختيار اماكن الازرار
-                  </p>
-              </div>
-          </li>
-      </ul>
-  </div>
-  </section>
-   <!--========================== END OF TEAM ============================-->
-  
-  
-
-
+    <!--====================== END OF TESTIMONIALS =====================-->
 </main>
 
 
-  <%- include("./partials/footer.ejs") %>
+<footer id="footer">
+    <div class="container footer__container">
+      <div class="footer__1">
+        <a href="/" class="footer__logo">
+            <div class="Title-name" style="margin-top: 0; position: relative;">
+                <h2 style="font-family: 'Righteous'; color: #fe9720; margin-top: 0; flex-wrap: wrap;">
+                    <span id="title2"> Mr. Islam</span> <span style="color: #ffffff;" id="title3">Abd Elhameed</span>
+                </h2>
+                <!-- <img src="images/icon.png" alt="logo"> -->
+            </div>
+        </a>
+        <p>
+          منصة تعليمة تهدف الي تحسين جوده التعليم الالكتروني من خلال حلول بسيطه وسلسه
+        </p>
+      </div>
+
+      <div class="footer__2">
+        <h4>الصفحات</h4>
+        <ul class="permalinks">
+          <li><a href="/"> احجز معنا الان </a></li>
+        </ul>
+      </div>
+
+      <div class="footer__3">
+        <h4>الشروط والاحكام</h4>
+        <ul class="privacy">
+          <li><a href="#" style="text-decoration: none;" >البنود والاتفاقات</a></li>
+          <li><a href="#" style="text-decoration: none;">الشروط والاحكام</a></li>
+
+        </ul>
+      </div>
+
+      <div class="footer__4">
+        <h4>الدعم الفني</h4>
+        <div>
+          <p>01225819949</p>
+          <p>info@islam.com</p>
+        </div>
+
+        <ul class="footer__socials">
+          <li  style="background-color: #fff; border-radius: 20%;">
+            <a href="https://www.facebook.com/MrIslamAbdElhamid?mibextid=ZbWKwL"><i class="uil uil-facebook-f" style="color:#4267B2 ;"></i></a>
+          </li>
+          <li style="background-color: #fff; border-radius: 20%;">
+            <a  href="https://wa.me/+201148069553"><i class="uil uil-whatsapp" style="color: #128C7E;"></i></a>
+          </li>
+          <li style="background-color: #fff; border-radius: 20%;">
+            <a  href="https://youtube.com/@user-fw2ts6bg3g"><i class="uil uil-youtube" style="color: #FF0000;"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__copyright">
+      <small> تطبق الشروط والاحكام &copy; 2023</small>
+    </div>
+  </footer>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.5/swiper-bundle.min.js" integrity="sha512-cEcJcdNCHLm3YSMAwsI/NeHFqfgNQvO0C27zkPuYZbYjhKlS9+kqO5hZ9YltQ4GaTDpePDQ2SrEk8gHUVaqxig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.5/swiper-bundle.min.js" integrity="sha512-cEcJcdNCHLm3YSMAwsI/NeHFqfgNQvO0C27zkPuYZbYjhKlS9+kqO5hZ9YltQ4GaTDpePDQ2SrEk8gHUVaqxig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 
 </body>
+
 </html>
