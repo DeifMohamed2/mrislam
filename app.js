@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const MongoStore = require('connect-mongo')
 const session = require('express-session')
 const fileUpload = require('express-fileupload');
+const cors = require('cors')
 
 
 
@@ -47,6 +48,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 app.set('view engine', 'ejs');
 // listen for requests
 
+
+app.use(cors())
 app.use((req, res, next) => {
     req.io = io; // Attach io to the request object
     next(); // Move to the next middleware or route handler
