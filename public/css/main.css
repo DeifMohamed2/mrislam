@@ -15,17 +15,17 @@
 
 /* #eed311 */
 :root {
-  --color-primary: #fec900;
+  --color-primary: #fe9720;
   --color-success: #00bf8e;
-  --color-warning: #f7c94b;
-  --color-danger: #fec900;
+  --color-warning: rgb(225, 123, 7);
+  --color-danger: rgb(71, 71, 100);
   --color-danger-variant: rgba(247, 88, 66, 0.4);
   --color-white: #fff;
   --color-light: rgba(255, 255, 255, 0.7);
   --color-black: #000;
-  --color-bg: rgb(11, 10, 10);
-  --color-bg1: #000;
-  --color-bg2: #000;
+  --color-bg: #394475;
+  --color-bg1: #3c4187;
+  --color-bg2: #545cae;
 
   --container-width-lg: 80%;
   --container-width-md: 90%;
@@ -35,13 +35,13 @@
 }
 
 body {
-  font-family: 'Rihgthouse';
+  font-family:'Righteous';
   line-height: 1.7;
   color: var(--color-white);
-  background: #000000;
-background: -webkit-linear-gradient(170deg, #000000 0%, #4a4a4a 100%);
-background: linear-gradient(170deg, #000000 0%, #4a4a4a 100%);
-  overflow-x: hidden;
+  background-image: url(/images/background.webp);
+  background-repeat: no-repeat;
+  background-size: 100% 100%; /* Adjust width as needed, 'auto' for height */
+
 }
 
 .container {
