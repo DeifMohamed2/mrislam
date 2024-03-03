@@ -434,9 +434,8 @@ transform: translateY(0);
 
 /* =================== CATEGORIES ===================== */
 .categories {
-  background: #000000;
-  background: -webkit-linear-gradient(181deg, #000000 0%, #0f0f0f 50%, #000000 100%);
-  background: linear-gradient(181deg, #000000 0%, #0f0f0f 50%, #000000 100%);
+  border-top: 0.2px solid var(--color-primary);
+  border-bottom: 0.2px solid var(--color-primary);
   height: 25rem;
 
 }
@@ -466,7 +465,7 @@ transform: translateY(0);
 }
 
 .category {
-  background: #fec900;
+  background: var(--color-primary);
   
   color: #000;
   padding: 1.5rem;
@@ -944,7 +943,6 @@ footer ul li a:hover {
 
 section.featuers {
   padding: 80px 0 80px;
-  background-color: var(--color-bg);
 }
 
 section.featuers .featuers-title {
