@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<%- include("./partials/head.ejs") %>
+
+    <style>
+        .BTN_Upload {
+            position: absolute;
+            top: 50%;
+            background-color: var(--color-white) !important;
+            border-radius: var(--border-radius-1) !important;
+            padding: 0.5rem 1rem !important;
+            border: 1px dashed var(--color-primary) !important;
+            margin: 1rem 0 !important;
+            color: var(--color-primary) !important;
+            transition: all 400ms ease !important;
+
+        }
+
+        .BTN_Upload:disabled {
+            opacity: 0.5 !important;
+        }
+    </style>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    <%- include("./partials/nav.ejs") %>
+                </div>
+                <!--------------------END ASIDE  ------------------>
+                <div class=" col-md-10 ">
+                    <main>
+                        <div class="row">
+
+                            <div class=" col-md-6 ">
+                                <div class="left float-start ms-3" style="margin-top: 0.2rem;">
+                                    <div class="top">
+                                        <button id="menu-btn">
+                                            <span class="material-icons-sharp">
+                                                menu
+                                            </span>
+                                        </button>
+                                        <div class="theme-toggler">
+                                            <span class="material-icons-sharp active">
+                                                light_mode
+                                            </span>
+                                            <span class="material-icons-sharp">
+                                                dark_mode
+                                            </span>
+                                        </div>
+                                        <div class="profile">
+                                            <div class="info">
+                                                <p>اهلا بك،<b id="userName"> </b></p>
+                                            </div>
+                                            <div class="profile-photo">
+                                                <img src="" alt="profile photo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END OF TOP -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row chapter_Box">
+                            <div class="col-md-8">
+                                <h1>اضف cahpter جديد</h1>
+                                <form action="/teacher/addChapter" method="post">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="product-info">
+                                                <textarea name="chapterName" cols="25" rows="2"
+                                                    placeholder="عنوان Chapter" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <select class="Grade" id="ARorEN" name="ARorEN"
+                                            required>
+                                            <option selected value="AR"> عربي </option>
+                                            <option value="EN"> لغات  </option>
+                                             </select>
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <select class="Grade" name="chapterGrade" required>
+                                                <option>اختر الصف الدراسي </option>
+                                                <option  value="Grade1">الصف الاول الثانوي</option>
+                                                <option value="Grade2">الصف الثاني الثانوي </option>
+                                                <option value="Grade3">الصف الثالث الثانوي</option>
+                                            </select>
+                                        </div>
+                                
+                                        <div class="col-md-3 ">
+                                            <select class="Grade" id="chapterAccessibility" name="chapterAccessibility"
+                                                required>
+                                                <option selected value="EnterInFree">دخول ال Chapter مجانا</option>
+                                                <option value="EnterInPay">شراء ال Chapter اولا </option>
+                                            </select>
+                                  
+                                            <input type="number" class="ChapterPrice" name="chapterPrice"
+                                                id="ChapterPrice" placeholder="السعر" disabled required>
+                                        </div>
+
+
+
+
+                                        <div class="col-md-4 mx-auto ">
+                                            <button class="me-5 mt-4 Add_New_Chapter" id="Add_New_Chapter"> اضف chapter
+                                                جديد </button>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row addToChapterStructure">
+                            <h1>Add To Chapter</h1>
+
+                            <h2 id="waiting" style="display: none;">wait please ...</h2>
+
+                            <form action="/teacher/getAllChapters" method="post">
+
+                                <div class="row">
+                                    <div class="col-md-4 ">
+                                        <select name="chapterGrade" class="Grade w-100 text-center" required>
+                                            <option>اختر الصف الدراسي </option>
+                                            <option value="Grade1">الصف الاول الثانوي</option>
+                                            <option value="Grade2">الصف الثاني الثانوي </option>
+                                            <option value="Grade3">الصف الثالث الثانوي</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <button class="generate_Video_Boxs_Btn"> Get Chapters </button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+                            <form action="/teacher/addVideo" method="post">
+                                <div class="row ">
+                                    <div class="col-md-4 text-center">
+                                        <% if (chaptersData) { %>
+                                            <select id="ChaptersNames" name="ChaptersIds"
+                                                class="Grade w-100 text-center">
+
+                                                <% }else { %>
+
+                                                    <select id="ChaptersNames" name="ChaptersIds" disabled
+                                                        class="Grade w-100 text-center">
+                                                        <% } %>
+
+                                                            <option>اختر اسم chapter </option>
+
+                                                            <% if (chaptersData) { %>
+                                                                <% chaptersData.forEach(chapter=> { %>
+                                                                    <option value="<%= chapter.chapterId %>">
+                                                                        <%= chapter.chapterName %>
+                                                                    </option>
+                                                                    <% }) %>
+                                                                        <% } %>
+                                                    </select>
+
+                                    </div>
+
+                                    <div class="col-md-4 text-center">
+                                        <select id="VideoType" name="VideoType" class="Grade w-100 text-center"
+                                            required>
+                                            <option>اختر نوع الفيديو </option>
+                                            <option value="chapterLectures"> Lecture </option>
+                                            <option value="chapterSummaries">Summary </option>
+                                            <option value="chapterSolvings">Solving </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <% if (chaptersData) { %>
+
+
+                                    <div class="row Addvideos">
+
+                                        <div class="VideoData">
+                                            <!-- <h1>Video 1</h1> -->
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <div class="product-info">
+                                                        <textarea name="videoTitle" cols="50" rows="3"
+                                                            placeholder="عنوان الفيديو" required></textarea>
+                                                    </div>
+                                                    <div class="selction">
+
+                                                        <input type="text" name="videoURL" class="d-none" id="videoURL"
+                                                            value="">
+                                                        <input type="text" name="imgURL" class="d-none" id="imgURL"
+                                                            value="">
+                                                        <select name="paymentStatus" id="paymentStatus" class="Grade"
+                                                            required>
+                                                            <option>حاله الفيديو</option>
+                                                            <option selected value="Free">مجاني</option>
+                                                            <option value="Pay">مدفوع</option>
+
+                                                        </select>
+
+
+
+                                                        <select name="prerequisites" id="prerequisites" class="Grade"
+                                                            required>
+                                                            <option>السماح بالدخول </option>
+                                                            <option value="WithExam">بامتحان فقط</option>
+                                                            <option value="WithHw"> بواجب فقط</option>
+                                                            <option value="WithExamaAndHw"> بامتحان وواجب</option>
+                                                            <option selected value="WithOutExamAndHW">بدون امتحان و واجب
+                                                            </option>
+                                                        </select>
+                                                        <select name="permissionToShow" id="permissionToShow"
+                                                            class="Grade" required>
+                                                            <option>حاله الفيديو للطلاب</option>
+                                                            <option selected value="apper">ظهور الفيديو</option>
+                                                            <option value="disapper">اخفاء الفيديو</option>
+                                                        </select>
+
+                                                        <select name="AccessibleAfterViewing"
+                                                            id="AccessibleAfterViewing" class="Grade" disabled required>
+                                                            <option>يفتح بعد </option>
+
+
+                                                            <% if (chaptersData) { %>
+                                                                <% chaptersData.forEach(chapter=> { %>
+                                                                    <% chapter['chapterLectures'].forEach(lec=> { %>
+                                                                        <option value="<%= lec._id %>">
+                                                                            <%= lec.videoTitle %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                            <% }) %>
+                                                                                <% } %>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="prodct-budjet">
+                                                        <input type="number" name="videoAllowedAttemps" class="salary"
+                                                            value="100" placeholder="عدد المشاهدات" required>
+
+                                                        <input type="number" name="videoPrice" class="salary" disabled
+                                                            id="videoPrice" placeholder="سعر الفيديو" required>
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                    <div class="col-md-3 mt-2 mx-auto">
+                                        <button class="generate_Video_Boxs_Btn" id="generate_Video_Box_Btn"> Add Video
+                                        </button>
+                                    </div>
+
+
+                        </div>
+                        </form>
+
+
+
+                        <div class="product-values row">
+                            <div class="col-6">
+                                <div class="video-uploder">
+                                    <div class="upload">
+                                        <button class="warning BTN_Upload" type="button" id="BtnPhotoUpload"
+                                            onclick=" module.uploadphoto()">رفع الصوره <i
+                                                class="fa-solid fa-upload me-2"></i></button>
+                                        <input type="file" id="selbtnPhoto"><br>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-6">
+                                <form action="/teacher/uploadVideo" method="post" enctype="multipart/form-data">
+
+                                    <div class="video-uploder">
+
+                                        <div class="upload">
+
+
+
+                                            <button class="dange  BTN_Upload " type="submit" id="BtnVideoUpload">رفع
+                                                الفيديو <i class="fa-solid fa-upload me-2"></i></button>
+                                            <input type="file" name="filetoupload" id="selbtnVideo"><br>
+
+
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <% } %>
+
+
+                    </main>
+                </div>
+
+            </div>
+        </div>
+        <script src="/assest/bootstrap.min.js"></script>
+        <script src="/assest/bootstrap.bundle.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+
+        <script>
+            const socket = io();
+
+            socket.on('upload_progress', (data) => {
+                document.getElementById('BtnVideoUpload').innerHTML = `Upload Progress: ${data.percentage}%`;
+                if (data.percentage === 100) {
+                    document.getElementById('BtnVideoUpload').innerHTML = `تم الرفع`;
+
+                }
+            });
+            socket.on('videoLink', (data) => {
+                console.log(data);
+                document.getElementById('videoURL').value = `${data.videoLink}`;
+            });
+
+
+        </script>
+
+
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+            import {
+                getDatabase,
+                ref,
+                set,
+                onValue,
+                child,
+                get,
+                update,
+                remove,
+                push,
+            } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
+            import {
+                getAuth,
+                createUserWithEmailAndPassword,
+                signInWithEmailAndPassword,
+                signOut,
+                GoogleAuthProvider,
+                signInWithPopup,
+                signInWithRedirect,
+                FacebookAuthProvider,
+                onAuthStateChanged,
+            } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+            import {
+                getStorage,
+                ref as sRef,
+                uploadBytesResumable,
+                getDownloadURL,
+            } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-storage.js";
+
+            // Your web app's Firebase configuration
+            const dbfirebaseConfig = {
+                apiKey: "AIzaSyChX6oD8uA1tWR_hNzcVzOOZMYwXsLW-TA",
+                authDomain: "allasharaf.firebaseapp.com",
+                databaseURL: "https://allasharaf-default-rtdb.firebaseio.com",
+                projectId: "allasharaf",
+                storageBucket: "allasharaf.appspot.com",
+                messagingSenderId: "638342504235",
+                appId: "1:638342504235:web:f3350e5bb8a63e41bc2f6e"
+            };
+            const storageConfig = {
+                apiKey: "AIzaSyC0VUgV2B_ClqKImLQAafbklwKZRabod0A",
+                authDomain: "biodiva-fa1b0.firebaseapp.com",
+                databaseURL: "https://biodiva-fa1b0-default-rtdb.firebaseio.com",
+                projectId: "biodiva-fa1b0",
+                storageBucket: "biodiva-fa1b0.appspot.com",
+                messagingSenderId: "262124821606",
+                appId: "1:262124821606:web:09311e0be3fc9b7634a1a7"
+            };
+            const storageApp = initializeApp(storageConfig, "storage");
+            const dbApp = initializeApp(dbfirebaseConfig, "db");
+            const db = getDatabase(dbApp);
+            const authConfig = {
+                apiKey: "AIzaSyChX6oD8uA1tWR_hNzcVzOOZMYwXsLW-TA",
+                authDomain: "allasharaf.firebaseapp.com",
+                databaseURL: "https://allasharaf-default-rtdb.firebaseio.com",
+                projectId: "allasharaf",
+                storageBucket: "allasharaf.appspot.com",
+                messagingSenderId: "638342504235",
+                appId: "1:638342504235:web:f3350e5bb8a63e41bc2f6e"
+            };
+            const authApp = initializeApp(authConfig, "auth");
+            const auth = getAuth(authApp);
+            const dbRef = ref(db);
+
+
+
+
+
+
+            let files = [];
+            let reader = new FileReader();
+            let imgUrl;
+            var input = document.getElementById("selbtnPhoto");
+            let selVideo = document.getElementById('selbtnVideo')
+            var UpBtn = document.getElementById("BtnPhotoUpload");
+
+
+            input.onchange = (e) => {
+                files = e.target.files;
+                reader.readAsDataURL(files[0]);
+            };
+
+            reader.onload = function () {
+                // SelBtn.remove();
+                // editPhotoBtn.style.display = "inline";
+                // document.getElementById("imgUploaded").classList.remove("d-none");
+                // document.getElementById("imgUploaded").src = reader.result;
+
+            };
+
+
+
+            UpBtn.onclick = () => {
+                uploadphoto();
+            }
+
+            async function uploadphoto() {
+                var imgToUpload = files[0];
+
+                const metaData = {
+                    contentType: imgToUpload.type,
+                };
+
+                const storage = getStorage(storageApp);
+                console.log(imgToUpload);
+                const stroageRef = sRef(
+                    storage,
+                    "BioDiva/" + "New/" + files[0].name
+                );
+                const UploadTask = uploadBytesResumable(stroageRef, imgToUpload, metaData);
+                UploadTask.on(
+                    "state-changed",
+                    (snapshot) => {
+                        var progess = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        UpBtn.innerHTML = progess.toFixed(2) + "%";
+                    },
+                    (error) => {
+                        console.log(error)
+
+                    },
+                    () => {
+                        getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+                            imgUrl = downloadURL;
+                            document.getElementById('imgURL').setAttribute('value', imgUrl)
+                            document.getElementById('BtnPhotoUpload').innerHTML = "تم الرفع"
+
+                            document.getElementById('BtnVideoUpload').removeAttribute('disabled')
+                        });
+                    }
+                );
+            }
+
+
+
+            // document.getElementById('BtnVideoUpload').addEventListener('click', function() {
+            //     const file = selVideo.files[0];
+            //     if (file) {
+            //         const formData = new FormData();
+            //         formData.append('file', file);
+            //         uploadVideo(formData);
+            //     }
+            // });
+
+
+
+            // function uploadVideo(formData) {
+            //     const config = {
+            //         onUploadProgress: function(progressEvent) {
+            //             const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            //             document.getElementById('BtnVideoUpload').innerHTML = percentCompleted;
+            //         },
+            //         headers: {
+            //             'Content-Type': 'application/offset+octet-stream', 
+            //             'Tus-Resumable': '1.0.0', 
+            //             'Upload-Length': '100', 
+            //             'Upload-Metadata': 'authorization cGFuZGEtYXBpX2tleQ==, filename bm9tZV90ZXN0ZQ==',
+
+            //             'Authorization': 'Bearer panda-993c5acca9aad0daeaa0ffa967d135a7d5df7f2b63b72e821044d4d2a4fc8cdb'
+            //         }
+            //     };
+
+            //     axios.post('https://uploader-us01.pandavideo.com.br/files', formData, config)
+            //         .then(function(response) {
+            //             console.log(JSON.stringify(response.data));
+            //             // Handle response as needed
+            //         })
+            //         .catch(function(error) {
+            //             console.log(error);
+            //             // Handle error as needed
+            //         });
+            // }
+
+            // module.uploadVideo = uploadVideo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </script>
+
+        <script>
+                const chapterAccessibility = document.getElementById('chapterAccessibility')
+            console.log(chapterAccessibility.value)
+            chapterAccessibility.addEventListener('change', () => {
+                if (chapterAccessibility.value === 'EnterInPay') {
+
+                    document.getElementById('ChapterPrice').removeAttribute('disabled')
+                } else {
+                    document.getElementById('ChapterPrice').setAttribute('disabled', true)
+                }
+            })
+
+
+            const paymentStatus = document.getElementById('paymentStatus')
+            paymentStatus.addEventListener('change', () => {
+                if (paymentStatus.value == "Pay") {
+
+                    document.getElementById('videoPrice').removeAttribute('disabled')
+
+                } else {
+                    document.getElementById('videoPrice').setAttribute('disabled', true)
+
+                }
+            })
+
+            const prerequisites = document.getElementById('prerequisites')
+            prerequisites.addEventListener('change', () => {
+                if (prerequisites.value == "WithHw" || prerequisites.value == "WithExamaAndHw") {
+                    document.getElementById('AccessibleAfterViewing').removeAttribute('disabled')
+                } else {
+                    document.getElementById('AccessibleAfterViewing').setAttribute('disabled', true)
+
+                }
+            })
+
+
+        </script>
+
+    </body>
+
+
+
+</html>
