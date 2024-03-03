@@ -31,7 +31,7 @@ let io
 const dbURI = 'mongodb+srv://deifm:test12345@cluster0.5orkagp.mongodb.net/node-tuts'
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {
-        let server = app.listen(3000);
+        let server = app.listen(8800);
 
         io = socketio(server)
         io.on('connection', (socket) => {
