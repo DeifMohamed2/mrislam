@@ -358,6 +358,18 @@
 
  <!-- Include Dropzone JS -->
  <script>
+
+// Function to handle beforeunload event
+function handleBeforeUnload(event) {
+
+        const confirmationMessage = 'Upload in progress. Are you sure you want to leave this page?';
+        (event || window.event).returnValue = confirmationMessage;
+        return confirmationMessage;
+
+}
+window.addEventListener('beforeunload', handleBeforeUnload);
+
+
    // Initialize Dropzone
    Dropzone.options.myDropzone = {
      paramName: "filetoupload", // Correct parameter name matching server-side code
