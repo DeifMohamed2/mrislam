@@ -143,7 +143,7 @@ app.post("/teacher/uploadVideo", async (req, res) => {
             console.log('Uploading: ' + filePath)
 
             const params = {
-                name: 'Vimeo API SDK test upload',
+                name: uploadedFile.name,
                 description: "This video was uploaded through the Vimeo API's NodeJS SDK."
             }
 

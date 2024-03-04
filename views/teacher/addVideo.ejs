@@ -21,7 +21,43 @@
             opacity: 0.5 !important;
         }
     </style>
-
+ <style>
+    /* Custom Dropzone styling */
+    .dropzone {
+      border: 2px dashed #0087F7;
+      border-radius: 5px;
+      background: #f7f7f7;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .dropzone .dz-message {
+      font-size: 16px;
+      text-align: center;
+      margin: 20px;
+    }
+    .dropzone .dz-preview .dz-progress {
+      height: 20px;
+      margin-top: 10px;
+    }
+    .dropzone .dz-preview .dz-upload {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background-color: #f7f7f7;
+    }
+    .dropzone .dz-preview .dz-upload .dz-upload-progress {
+      width: 0;
+      height: 100%;
+      background-color: #0087F7;
+      border-radius: 3px;
+    }
+    .dropzone .dz-preview .dz-upload .dz-upload-progress span {
+      display: block;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+    }
+  </style>
     <body>
         <div class="container-fluid">
             <div class="row">
@@ -292,23 +328,16 @@
 
                             <div class="col-6">
 
-                                <button class="dange  BTN_Upload "  id="BtnVideoUpload">رفع
+                        
+                                <form action="/teacher/uploadVideo" class="dropzone" id="my-dropzone">
+                                    <div class="dz-message">Drop MP4 files here or click to upload</div>
+                                    <div class="dz-progress">
+                                      <span class="dz-upload" data-dz-uploadprogress><span class="dz-upload-progress" style="width: 0%;" data-dz-uploadprogress></span></span>
+                                    </div>
+                                  </form>
+                                <button class="dange  BTN_Upload "   id="BtnVideoUpload">رفع
                                     الفيديو <i class="fa-solid fa-upload me-2"></i></button>
-                                <form action="/teacher/uploadVideo" class="dropzone" id="my-dropzone" >
 
-                                    <!-- <div class="video-uploder">
-
-                                        <div class="upload">
-
-
-
-                                            <input type="file" name="filetoupload" id="selbtnVideo"><br>
-
-
-                                        </div>
-
-                                    </div> -->
-                                </form>
                             </div>
 
 
