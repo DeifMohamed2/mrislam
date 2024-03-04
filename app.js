@@ -121,122 +121,59 @@ app.post("/teacher/uploadVideo", async (req, res) => {
     // Save the uploaded file
     const filePath = path.join(uploadDirectory, uploadedFile.name);
 
-
-    
-    uploadedFile.mv(filePath, (err) => {
+    uploadedFile.mv(filePath, async (err) => {
         if (err) {
             return res.status(500).send(err);
         }
 
-
-
-        const Vimeo = require('vimeo').Vimeo
-
         try {
+            const Vimeo = require('vimeo').Vimeo;
 
+            // Instantiate the Vimeo client with your credentials
+            const client = new Vimeo(
+                "58133a717ee5c29b2f419d7841021b1fc6d306c1", // Client ID
+                "NMEyxm7hJ0RPC01v6u8n5Cn+Z0DvfdP7YeYLVGYdrfx+62BmhW9fwKJtOI2pw6OBuVOeObUoJvBlMbYoWedlobZ13teA3ewTO16+Tg2WrhbO1pTMgVnPvJHpB+cK2X8m", // Client Secret
+                "b08f6b1dab35f2ae9ebb4e44ca25d9f2" // Access Token
+            );
 
-            // Instantiate the library with your client id, secret and access token (pulled from dev site)
-            const client = new Vimeo("58133a717ee5c29b2f419d7841021b1fc6d306c1", "NMEyxm7hJ0RPC01v6u8n5Cn+Z0DvfdP7YeYLVGYdrfx+62BmhW9fwKJtOI2pw6OBuVOeObUoJvBlMbYoWedlobZ13teA3ewTO16+Tg2WrhbO1pTMgVnPvJHpB+cK2X8m", "b08f6b1dab35f2ae9ebb4e44ca25d9f2")
+            // Specify the folder URI
+            const folderUri = "/folders/19740524";
 
-            // Create a variable with a hard coded path to your file system
-
-            console.log('Uploading: ' + filePath)
-
-            const params = {
-                name: uploadedFile.name,
-                description: "This video was uploaded through the Vimeo API's NodeJS SDK."
-            }
-
+            // Upload video to Vimeo and assign it to the specified folder
             client.upload(
                 filePath,
-                params,
+                {
+                    name: uploadedFile.name,
+                    description: "This video was uploaded through the Vimeo API's NodeJS SDK.",
+                    upload: {
+                        approach: 'pull',
+                        size: uploadedFile.size,
+                        folder: folderUri // Assign video to the specified folder
+                    }
+                },
                 function (uri) {
-                    io.emit('upload_progress', { percentage: 100 });
-
-                    // Get the metadata response from the upload and log out the Vimeo.com url
-                    client.request(uri + '?fields=link', function (error, body, statusCode, headers) {
-                        if (error) {
-                            console.log('There was an error making the request.')
-                            console.log('Server reported: ' + error)
-                            return
-                        }
-
-                        console.log('"' + filePath + '" has been uploaded to ' + body.link)
-
-                        // Make an API call to edit the title and description of the video.
-                        client.request({
-                            method: 'PATCH',
-                            path: uri,
-                            params: {
-                                name: 'Vimeo API SDK test edit',
-                                description: "This video was edited through the Vimeo API's NodeJS SDK."
-                            }
-                        }, function (error, body, statusCode, headers) {
-                            if (error) {
-                                console.log('There was an error making the request.')
-                                console.log('Server reported: ' + error)
-                                return
-                            }
-
-                            console.log('The title and description for ' + uri + ' has been edited.')
-
-                            client.request(
-                                uri + '?fields=link',
-                                function (error, body, statusCode, headers) {
-                                    if (error) {
-                                        console.log('There was an error making the request.')
-                                        console.log('Server reported: ' + error)
-                                        return
-                                    }
-                            
-                                    console.log('Your video link is: ' + body.link );
-                            
-                                    const videoLink = body.link;
-                            
-                                    // Generate the iframe embed code
-                                    io.emit('embedCode', { videoLink: videoLink });
-
-                                    
-                                    console.log('The embed code for your video is:');
-                                    console.log(embedCode);
-                                }
-                            );
-                            
-                        })
-                    })
+                    // Handle successful upload
+                    console.log("Video uploaded successfully. URI:", uri);
+           // Send Excel file as response
                 },
                 function (bytesUploaded, bytesTotal) {
-                    const percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
-                    io.emit('upload_progress', { percentage });
-
-                    console.log(bytesUploaded, bytesTotal, percentage + '%')
+                    // Progress callback
+                    console.log(bytesUploaded, bytesTotal);
                 },
                 function (error) {
-                    console.log('Failed because: ' + error)
+                    // Error callback
+                    console.error('Failed because: ' + error);
+                    res.status(500).send('Failed to upload video.');
                 }
-            )
+            );
         } catch (error) {
-            console.error('ERROR: For this example to run properly you must create an API app at ' +
-                'https://developer.vimeo.com/apps/new and set your callback url to ' +
-                '`http://localhost:8080/oauth_callback`.')
-            console.error('ERROR: Once you have your app, make a copy of `config.json.example` named ' +
-                '`config.json` and add your client ID, client secret and access token.')
-            process.exit()
+            console.error('Error:', error);
+            res.status(500).send('Error uploading video.');
         }
-
-
-
-
-
-
     });
 
-
-
-    res.send(excelBuffer)
-
-}
-);
+    res.send(excelBuffer);
+});
 
 
 
