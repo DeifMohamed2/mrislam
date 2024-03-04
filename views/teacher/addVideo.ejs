@@ -3,6 +3,7 @@
 
 <%- include("./partials/head.ejs") %>
 
+
     <style>
         .BTN_Upload {
             position: absolute;
@@ -20,45 +21,15 @@
         .BTN_Upload:disabled {
             opacity: 0.5 !important;
         }
-    </style>
- <style>
-    /* Custom Dropzone styling */
-    .dropzone {
-      border: 2px dashed #495661;
+        .dropzone {
+      border: 2px dashed var(--color-primary);
       border-radius: 5px;
-      background: #323232;
-    
+      background: #3e3e3e;
       margin: 20px auto;
       padding: 20px;
     }
-    .dropzone .dz-message {
-      font-size: 16px;
-      text-align: center;
-      margin: 20px;
-    }
-    .dropzone .dz-preview .dz-progress {
-      height: 20px;
-      margin-top: 10px;
-    }
-    .dropzone .dz-preview .dz-upload {
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      background-color: #f7f7f7;
-    }
-    .dropzone .dz-preview .dz-upload .dz-upload-progress {
-      width: 0;
-      height: 100%;
-      background-color: #0087F7;
-      border-radius: 3px;
-    }
-    .dropzone .dz-preview .dz-upload .dz-upload-progress span {
-      display: block;
-      text-align: center;
-      line-height: 20px;
-      color: white;
-    }
-  </style>
+    </style>
+
     <body>
         <div class="container-fluid">
             <div class="row">
@@ -330,12 +301,23 @@
                             <div class="col-6">
 
                         
-                                <form action="/teacher/uploadVideo" class="dropzone" id="my-dropzone">
-                                    <div class="dz-message">Drop MP4 files here or click to upload</div>
-                                    <div class="dz-progress">
-                                      <span class="dz-upload" data-dz-uploadprogress><span class="dz-upload-progress" style="width: 0%;" data-dz-uploadprogress></span></span>
-                                    </div>
-                                  </form>
+                                <form action="/teacher/uploadVideo" class="dropzone" id="my-dropzone" >
+                            
+                                    
+                                    <!-- <div class="video-uploder">
+
+                                        <div class="upload">
+
+
+
+                                            <input type="file" name="filetoupload" id="selbtnVideo"><br>
+
+
+                                        </div>
+
+                                    </div> -->
+                                </form>
+
                                 <button class="dange  BTN_Upload "   id="BtnVideoUpload">رفع
                                     الفيديو <i class="fa-solid fa-upload me-2"></i></button>
 
@@ -382,25 +364,19 @@
  <script>
    // Initialize Dropzone
    Dropzone.options.myDropzone = {
-      paramName: "file", // The name that will be used to transfer the file
-      maxFilesize: 2048, // MB
-      acceptedFiles: ".mp4", // Allowed file types (only MP4 for Vimeo)
-      dictDefaultMessage: "Drop MP4 files here or click to upload",
-      init: function () {
-        this.on("uploadprogress", function (file, progress, bytesSent) {
-          // Update progress bar with percentage
-          var progressBar = file.previewElement.querySelector("[data-dz-uploadprogress]");
-          progressBar.style.width = progress + "%";
-          progressBar.querySelector("span").innerText = progress + "%";
-        });
-        this.on("success", function (file, response) {
-          console.log("File uploaded successfully:", response);
-        });
-        this.on("error", function (file, errorMessage) {
-          console.error("Error uploading file:", errorMessage);
-        });
-      }
-    };
+     paramName: "filetoupload", // Correct parameter name matching server-side code
+     maxFilesize: 2048, // MB
+     acceptedFiles: ".mp4", // Allowed file types (only MP4 for Vimeo)
+     dictDefaultMessage: "Drop MP4 files here or click to upload",
+     init: function () {
+       this.on("success", function (file, response) {
+         console.log("File uploaded successfully:", response);
+       });
+       this.on("error", function (file, errorMessage) {
+         console.error("Error uploading file:", errorMessage);
+       });
+     }
+   };
  </script>
 
         <script type="module">
