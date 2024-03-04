@@ -382,19 +382,25 @@
  <script>
    // Initialize Dropzone
    Dropzone.options.myDropzone = {
-     paramName: "filetoupload", // Correct parameter name matching server-side code
-     maxFilesize: 2048, // MB
-     acceptedFiles: ".mp4", // Allowed file types (only MP4 for Vimeo)
-     dictDefaultMessage: "Drop MP4 files here or click to upload",
-     init: function () {
-       this.on("success", function (file, response) {
-         console.log("File uploaded successfully:", response);
-       });
-       this.on("error", function (file, errorMessage) {
-         console.error("Error uploading file:", errorMessage);
-       });
-     }
-   };
+      paramName: "file", // The name that will be used to transfer the file
+      maxFilesize: 2048, // MB
+      acceptedFiles: ".mp4", // Allowed file types (only MP4 for Vimeo)
+      dictDefaultMessage: "Drop MP4 files here or click to upload",
+      init: function () {
+        this.on("uploadprogress", function (file, progress, bytesSent) {
+          // Update progress bar with percentage
+          var progressBar = file.previewElement.querySelector("[data-dz-uploadprogress]");
+          progressBar.style.width = progress + "%";
+          progressBar.querySelector("span").innerText = progress + "%";
+        });
+        this.on("success", function (file, response) {
+          console.log("File uploaded successfully:", response);
+        });
+        this.on("error", function (file, errorMessage) {
+          console.error("Error uploading file:", errorMessage);
+        });
+      }
+    };
  </script>
 
         <script type="module">
