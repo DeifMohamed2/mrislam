@@ -127,7 +127,7 @@
 
 
                                         <div class="col-md-4 mx-auto ">
-                                            <button class="me-5 mt-4 Add_New_Chapter" id="Add_New_Chapter"> اضف chapter
+                                            <button class="me-5 mt-4 Add_New_Chapter" type="" id="Add_New_Chapter"> اضف chapter
                                                 جديد </button>
                                         </div>
 
@@ -168,7 +168,7 @@
                                             <select id="ChaptersNames" name="ChaptersIds"
                                                 class="Grade w-100 text-center" required>
 
-                                                <% }else { % >
+                                                <% }else { %>
 
                                                     <select id="ChaptersNames" name="ChaptersIds" disabled
                                                         class="Grade w-100 text-center" required>
@@ -366,13 +366,13 @@
                 console.log(data);
                 document.getElementById('videoURL').value = `${data.videoLink}`;
             });
-            // const generate_Video_Box_Btn = document.getElementById('generate_Video_Box_Btn');
-            // generate_Video_Box_Btn.addEventListener('click',()=>{
-            //     generate_Video_Box_Btn.disabled = true;
-            // })
-            // setTimeout(() => {
-            //     generate_Video_Box_Btn.disabled = false;
-            // }, 10000);
+            const generate_Video_Box_Btn = document.getElementById('generate_Video_Box_Btn');
+            generate_Video_Box_Btn.addEventListener('click',()=>{
+                generate_Video_Box_Btn.disabled = true;
+            })
+            setTimeout(() => {
+                generate_Video_Box_Btn.disabled = false;
+            }, 10000);
       
             
             
