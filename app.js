@@ -141,7 +141,6 @@ app.post("/teacher/uploadVideo", async (req, res) => {
 
             // Upload video to Vimeo and assign it to the specified folder
             client.upload(
-                uri + '?fields=link',
                 filePath,
                 {
                     name: uploadedFile.name,
