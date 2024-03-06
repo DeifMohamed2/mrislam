@@ -231,35 +231,6 @@ const addVideo_post = async (req, res) => {
           upsert: true
         }
       ).then((result) => {
-//         var reqs = http.request(options, function (ress) {
-//           var chunks = [];
-        
-//           ress.on("data", function (chunk) {
-//             chunks.push(chunk);
-//           });
-        
-//           ress.on("end", function () {
-//             var body = Buffer.concat(chunks);
-//             console.log(body.toString());
-//           });
-//         });
-      
-//         const message = `
-//         تم اضافة فيديو جديد علي المنصه 
-// اسم الفيديو : ${videoTitle}
-// سعر الفيديو : ${paymentStatus == "Pay" ? videoPrice : "مجاني"}
-// يوجد في  : ${resultChapter.chapterName} 
-//         `;
-
-//         var postData = qs.stringify({
-//           "token": "d67t1v1ohd7le593",
-//           "to": "+201156012078",
-//           "image": "https://firebasestorage.googleapis.com/v0/b/ahmadomar-83d25.appspot.com/o/PHOTO-2023-10-10-21-23-26%202.jpg?alt=media&token=4b85e51c-3721-4251-bd10-be9b7c3c3b47",
-//           "caption": message
-//       });
-//       reqs.write(postData);
-//       reqs.end();
-
 
         res.status(201).redirect('/teacher/addVideo');
       }).catch((error) => {
@@ -271,66 +242,11 @@ const addVideo_post = async (req, res) => {
   } catch (error) {
     // Handle errors
     console.error('Error adding video:', error.message);
-    res.status(500).send('An error occurred while adding the video. Please try again later.');
+    res.status(500).redirect('/teacher/addVideo?error=true');
   }
 
 
-
-
-  // try {
-  //   const videoBuffer = req.files['video'][0].buffer;
-  //   const fileSize = videoBuffer.byteLength;
-
-  //   // Metadata setup
-  //   let metadata = `authorization ${parseToBase64(API_KEY)}`;
-  //   if (FOLDER_ID) {
-  //     metadata += `, folder_id ${parseToBase64(FOLDER_ID)}`;
-  //   }
-  //   metadata += `, filename ${parseToBase64(req.files['video'][0].originalname)}`;
-  //   metadata += `, video_id ${parseToBase64(VIDEO_ID)}`;
-
-  //   const passThroughStream = new PassThrough();
-  //   passThroughStream.end(videoBuffer);
-
-  //   const { data: uploadServers } = await axios.get('https://api-v2.pandavideo.com.br/hosts/uploader', {
-  //     headers: {
-  //       'Authorization': API_KEY,
-  //     }
-  //   });
-  //   const allHosts = Object.values(uploadServers.hosts).reduce((acc, curr) => ([...acc, ...curr]), []);
-  //   const host = allHosts[Math.floor(Math.random() * allHosts.length)];
-  //   console.log(`Starting upload to ${host}`);
-
-  //   let uploadedBytes = 0; // Track uploaded bytes
-
-  //   await axios.post(`https://${host}.pandavideo.com.br/files`, passThroughStream, {
-  //     headers: {
-  //       'Tus-Resumable': '1.0.0',
-  //       'Upload-Length': fileSize,
-  //       'Content-Type': 'application/offset+octet-stream',
-  //       'Upload-Metadata': metadata
-  //     },
-  //     onUploadProgress: (progressEvent) => {
-  //       // Update uploadedBytes as progress is made
-  //       uploadedBytes = progressEvent.loaded;
-  //       // Calculate percentage progress
-  //       const percentProgress = (uploadedBytes / fileSize) * 100;
-  //       console.log(`Uploaded: ${percentProgress.toFixed(2)}%`);
-  //     }
-  //   });
-  //   console.log('Upload completed successfully');
-  //   // setInterval(()=>{
-  //   //   res.redirect('/teacher/addVideo')
-  //   // },10000)
-  // } catch (error) {
-  //   console.log('UPLOAD ERROR');
-  //   console.log(error);
-  // }
-};
-
-
-    // Your other routes
-
+}
 
 
 // =================================================== END ADD Videos ================================================ // 

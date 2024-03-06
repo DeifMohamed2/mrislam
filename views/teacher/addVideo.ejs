@@ -41,6 +41,18 @@
                     <main>
                         <div class="row">
 
+                            <div class="alert alert-danger w-50 mt-4" id="alert">
+                 
+                                <button class="BTNAlert"> <i class="fa-solid fa-x"></i></button>
+                                <h1 style="text-align: center; font-size: 18px; margin-bottom: 5px;">الكود خاطئ</h1>
+                                <h2 style="text-align: center; font-size: 14px; margin-bottom: 5px;">الأسباب ممكن تكون:</h2>
+                                <ol type="a" style="font-size: 12px; margin-bottom: 5px;">
+                                  <li>الكود مستخدم من قبل</li>
+                                  <li>الكود مش بتاع الامتحان</li>
+                                  <li>الكود مكتوب غلط</li>
+                                </ol>
+                              </div>
+
                             <div class=" col-md-6 ">
                                 <div class="left float-start ms-3" style="margin-top: 0.2rem;">
                                     <div class="top">
@@ -91,7 +103,7 @@
                                         </div>
                                         <div class="col-md-3 ">
                                             <select class="Grade" name="chapterGrade" required>
-                                                <option>اختر الصف الدراسي </option>
+                                                <option value="">اختر الصف الدراسي </option>
                                                 <option  value="Grade1">الصف الاول الثانوي</option>
                                                 <option value="Grade2">الصف الثاني الثانوي </option>
                                                 <option value="Grade3">الصف الثالث الثانوي</option>
@@ -133,7 +145,7 @@
                                 <div class="row">
                                     <div class="col-md-4 ">
                                         <select name="chapterGrade" class="Grade w-100 text-center" required>
-                                            <option>اختر الصف الدراسي </option>
+                                            <option value="">اختر الصف الدراسي </option>
                                             <option value="Grade1">الصف الاول الثانوي</option>
                                             <option value="Grade2">الصف الثاني الثانوي </option>
                                             <option value="Grade3">الصف الثالث الثانوي</option>
@@ -176,7 +188,7 @@
                                     <div class="col-md-4 text-center">
                                         <select id="VideoType" name="VideoType" class="Grade w-100 text-center"
                                             required>
-                                            <option>اختر نوع الفيديو </option>
+                                            <option value="">اختر نوع الفيديو </option>
                                             <option value="chapterLectures"> Lecture </option>
                                             <option value="chapterSummaries">Summary </option>
                                             <option value="chapterSolvings">Solving </option>
@@ -352,8 +364,86 @@
                 console.log(data);
                 document.getElementById('videoURL').value = `${data.videoLink}`;
             });
+            const generate_Video_Box_Btn = document.getElementById('generate_Video_Box_Btn');
+            generate_Video_Box_Btn.disabled = true;
+            
+            
+
+            const chapterAccessibility = document.getElementById('chapterAccessibility')
+            console.log(chapterAccessibility.value)
+            chapterAccessibility.addEventListener('change', () => {
+                if (chapterAccessibility.value === 'EnterInPay') {
+
+                    document.getElementById('ChapterPrice').removeAttribute('disabled')
+                } else {
+                    document.getElementById('ChapterPrice').setAttribute('disabled', true)
+                }
+            })
 
 
+            const paymentStatus = document.getElementById('paymentStatus')
+            paymentStatus.addEventListener('change', () => {
+                if (paymentStatus.value == "Pay") {
+
+                    document.getElementById('videoPrice').removeAttribute('disabled')
+
+                } else {
+                    document.getElementById('videoPrice').setAttribute('disabled', true)
+
+                }
+            })
+
+            const prerequisites = document.getElementById('prerequisites')
+            prerequisites.addEventListener('change', () => {
+                if (prerequisites.value == "WithHw" || prerequisites.value == "WithExamaAndHw") {
+                    document.getElementById('AccessibleAfterViewing').removeAttribute('disabled')
+                } else {
+                    document.getElementById('AccessibleAfterViewing').setAttribute('disabled', true)
+
+                }
+            })
+
+
+
+      // Get query string parameters
+      function getQueryStringParams() {
+        var params = {};
+        var search = window.location.search.substring(1);
+        var pairs = search.split('&');
+        for (var i = 0; i < pairs.length; i++) {
+          var pair = pairs[i].split('=');
+          if (pair.length === 2) {
+            var key = decodeURIComponent(pair[0]);
+            var value = decodeURIComponent(pair[1]);
+            params[key] = value;
+          }
+        }
+        return params;
+      }
+    
+      // Handle query string errors
+      function handleQueryStringError() {
+        var params = getQueryStringParams();
+        if (params.error) {
+          var alertElement = document.getElementById('alert');
+          alertElement.style.display = 'block';
+          alertElement.classList.add('show');
+    
+          // Hide the alert after 20 seconds
+          setTimeout(function() {
+            alertElement.classList.remove('show');
+            alertElement.classList.add('hide');
+          }, 15000);
+        }
+      }
+    
+      // Call the function to handle query string errors
+      handleQueryStringError();
+
+
+      document.querySelector('.BTNAlert').addEventListener('click', function() {
+        document.getElementById('alert').classList.add('hide');
+      });
         </script>
 
  <!-- Include Dropzone JS -->
@@ -365,7 +455,7 @@
      paramName: "filetoupload", // Correct parameter name matching server-side code
      maxFilesize: 5120, // MB
      maxFiles: 1,
-     acceptedFiles: ".mp4", // Allowed file types (only MP4 for Vimeo)
+     acceptedFiles: ".mp4",
      dictDefaultMessage: "Drop MP4 files here or click to upload",
      init: function () {
        this.on("success", function (file, response) {
@@ -378,7 +468,8 @@
    };
  </script>
 
-        <script type="module">
+<!-- Upload Photo To Firebase -->
+<script type="module">
             // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
             import {
@@ -517,101 +608,12 @@
                 document.getElementById('BtnVideoUpload').innerHTML = "يتم التجهيز للرفع برجاء عدم اغلاق الصفحه نهائيا"
             })
 
-            // document.getElementById('BtnVideoUpload').addEventListener('click', function() {
-            //     const file = selVideo.files[0];
-            //     if (file) {
-            //         const formData = new FormData();
-            //         formData.append('file', file);
-            //         uploadVideo(formData);
-            //     }
-            // });
-
-
-
-            // function uploadVideo(formData) {
-            //     const config = {
-            //         onUploadProgress: function(progressEvent) {
-            //             const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-            //             document.getElementById('BtnVideoUpload').innerHTML = percentCompleted;
-            //         },
-            //         headers: {
-            //             'Content-Type': 'application/offset+octet-stream', 
-            //             'Tus-Resumable': '1.0.0', 
-            //             'Upload-Length': '100', 
-            //             'Upload-Metadata': 'authorization cGFuZGEtYXBpX2tleQ==, filename bm9tZV90ZXN0ZQ==',
-
-            //             'Authorization': 'Bearer panda-993c5acca9aad0daeaa0ffa967d135a7d5df7f2b63b72e821044d4d2a4fc8cdb'
-            //         }
-            //     };
-
-            //     axios.post('https://uploader-us01.pandavideo.com.br/files', formData, config)
-            //         .then(function(response) {
-            //             console.log(JSON.stringify(response.data));
-            //             // Handle response as needed
-            //         })
-            //         .catch(function(error) {
-            //             console.log(error);
-            //             // Handle error as needed
-            //         });
-            // }
-
-            // module.uploadVideo = uploadVideo;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
         
-        </script>
+</script>
 
-        <script>
-                const chapterAccessibility = document.getElementById('chapterAccessibility')
-            console.log(chapterAccessibility.value)
-            chapterAccessibility.addEventListener('change', () => {
-                if (chapterAccessibility.value === 'EnterInPay') {
-
-                    document.getElementById('ChapterPrice').removeAttribute('disabled')
-                } else {
-                    document.getElementById('ChapterPrice').setAttribute('disabled', true)
-                }
-            })
-
-
-            const paymentStatus = document.getElementById('paymentStatus')
-            paymentStatus.addEventListener('change', () => {
-                if (paymentStatus.value == "Pay") {
-
-                    document.getElementById('videoPrice').removeAttribute('disabled')
-
-                } else {
-                    document.getElementById('videoPrice').setAttribute('disabled', true)
-
-                }
-            })
-
-            const prerequisites = document.getElementById('prerequisites')
-            prerequisites.addEventListener('change', () => {
-                if (prerequisites.value == "WithHw" || prerequisites.value == "WithExamaAndHw") {
-                    document.getElementById('AccessibleAfterViewing').removeAttribute('disabled')
-                } else {
-                    document.getElementById('AccessibleAfterViewing').setAttribute('disabled', true)
-
-                }
-            })
-
-
-        </script>
+  
 
     </body>
 

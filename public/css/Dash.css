@@ -21,6 +21,68 @@
   --padding-1: 1.2rem;
   --box-shadow: 0 2rem 3rem var(--color-light);
 }
+
+#alert-wrapper {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  padding: 20px;
+  z-index: 9999;
+}
+ /* Style for the alert popup */
+ .alert {
+  max-width: 300px;
+    position: fixed;
+    top: 5%;
+    right: 1%;
+    transform: translate(0, -50%);
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+    z-index: 22222;
+    padding: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hide the alert */
+  }
+
+  /* Show animation for the alert */
+  .show {
+    animation: slideInRight 0.5s forwards;
+  }
+
+  /* Hide animation for the alert */
+  .hide {
+    animation: slideOutRight 0.5s forwards;
+  }
+
+  /* Keyframe animations */
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutRight {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+  .BTNAlert{
+    cursor: pointer;
+  }
+
 /* -========================================= Dark THEME ================== */
 #BTNvideoUpload:disabled{
   opacity: 0.4;
