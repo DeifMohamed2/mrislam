@@ -181,17 +181,16 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                                         console.log('Server reported: ' + error)
                                         return
                                     }
-
+                            
                                     console.log('Your video link is: ' + body.link );
-
-                                    const videoLink = body.link;
-
+                            
+                                    const videoId = body.link.substring(body.link.lastIndexOf('/') + 1); // Extract video ID
+                                    const videoLink = `https://player.vimeo.com/video/${videoId}`; // Construct new link
+                            
                                     // Generate the iframe embed code
                                     io.emit('videoLink', { videoLink: videoLink });
 
-
-                                    console.log('The embed code for your video is:');
-                                    console.log(embedCode);
+                             
                                 }
                             );
 

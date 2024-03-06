@@ -299,12 +299,12 @@ const buyVideo = async (req, res) => {
             $set: { 'videosInfo.$.videoPurchaseStatus': true } 
           }
         );
-        res.send('Video Bought');
+        res.status(204).send();
       } else {
-        res.send('Video not Bought. User videosInfo does not contain videoId.');
+        res.status(204).send()
       }
     } else {
-      res.send('Video not Bought. Code not found or already used.');
+      res.status(204).send();
     }
   } catch (error) {
     res.send(error.message);
