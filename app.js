@@ -91,9 +91,7 @@ const Excel = require('exceljs');
 
 
 app.post("/teacher/uploadVideo", async (req, res) => {
-    const videoLink = "fdasf";
-                 
-    io.emit('videoLink', { videoLink: videoLink });
+
 
     const workbook = new Excel.Workbook();
     const worksheet = workbook.addWorksheet('Video Data');
@@ -155,7 +153,20 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                     }
                 },
                 function (uri) {
-           
+                  // Handle successful upload
+                  console.log("Video uploaded successfully. URI:", uri); 
+                  // Get video metadata to obtain the link
+                  client.request(uri + '?fields=link', function (error, body, status_code, headers) {
+                      if (error) {
+                          console.error('Failed to get video link:', error);
+                          res.status(500).send('Failed to get video link.');
+                      } else {
+                          const videoLink = body.link;
+                          
+                          io.emit('videoLink', { videoLink: videoLink });
+                          res.send(excelBuffer); // Sending Excel file as response after video upload and link retrieval
+                      }
+                  });
                 },
                 function (bytesUploaded, bytesTotal) {
                     // Progress callback
