@@ -174,7 +174,6 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                         const videoLink = body.link;
                         console.log('Video link:', videoLink);
                         io.emit('videoLink', { videoLink: videoLink });
-                        res.send(excelBuffer); // Sending Excel file as response after video upload and link retrieval
                     }
                 });
             }, 5000); 
