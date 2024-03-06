@@ -143,7 +143,7 @@
                         <div class="col-md-6">
                             <form action="/teacher/getQuizAlldata" method="get">
 
-                                <select id="sel" name="quizId">
+                                <select id="sel" name="quizId" required>
                                     <option value="">اختر الامتحان</option>
                                     <% if (quizData) { %>
                                         <% quizData.forEach(quiz => { %>
