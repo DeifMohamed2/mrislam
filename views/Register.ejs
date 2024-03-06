@@ -142,7 +142,7 @@
                 </div>
                 <div class="col-12 text-center">
                   <select  name="gov"  value="<%= formData.gov || '' %>" required>
-                    <option  selected value="القاهرة">اختر المحافظه</option>
+                    <option  value="">اختر المحافظه</option>
                     <option value="القاهرة">القاهرة</option>
                     <option value="الغربية">الغربية</option>
                     <option value="الجيزة">الجيزة </option>
@@ -185,7 +185,7 @@
 
                 <div class="col-12 text-center">
                   <select name="gender"  value="<%= formData.gender || '' %>" required>
-                    <option> اختر الجنس </option>
+                    <option value=""> اختر الجنس </option>
                     <option value="male">ذكر</option>
                     <option value="female">انثي</option>
                   </select>
@@ -198,7 +198,7 @@
                 </div>
                 <div class="col-12 text-center">
                   <select name="Grade" class="regSel" value="<%= formData.Grade || '' %>" required>
-                    <option selected value="Grade1"> اختر الصف الدراسي </option>
+                    <option  value=""> اختر الصف الدراسي </option>
                     <option value="Grade1">الصف الاول الثانوي</option>
                     <option value="Grade2">الصف الثاني الثانوي</option>
                     <option value="Grade3"> الصف الثالث الثانوي </option>
@@ -209,7 +209,7 @@
                 </div>
                 <div class="col-12 text-center">
                   <select name="place" id="place" value="<%= formData.place || '' %>" required>
-                    <option value="center"> سنتر </option>
+                    <option selected value="center"> سنتر </option>
                     <option value="online"> اونلاين </option>
                     <option value="hosting"> استضافه فقط </option>
 
@@ -220,7 +220,7 @@
                 </div>
                 <div class="col-12 text-center">
                   <select name="ARorEN" id="place" value="<%= formData.ARorEN || '' %>" required>
-                    <option value="AR"> انا عربي </option>
+                    <option selected value="AR"> انا عربي </option>
                     <option value="EN"> انا لغات </option>
               
                   </select>
