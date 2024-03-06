@@ -1184,7 +1184,7 @@ const quizSubmit = (req, res) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return res.render("teacher/addQuiz", { title: "AddQuiz", path: req.path, questions: quizQuestions, errors: errors, videsPrerequested: null, quizData: null, Grade: null,getQuizAllData:getQuizAllData });
+    return res.render("teacher/addQuiz", { title: "AddQuiz", path: req.path, questions: quizQuestions, errors: errors, videsPrerequested: null, quizData: null, Grade: null,getQuizAllData:getQuizAllData,videoData:null });
 
   }
 
