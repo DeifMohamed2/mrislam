@@ -251,10 +251,10 @@
                                     <form action="/teacher/updateQuestion/<%= question.code %>"  method="post"   class="form-question-added">
                                         <% if (question.questionPhoto!="") { %>
                                             <div class="box box1"> 
-                                                <img  src="<%= question.questionPhoto %>">  
+                                                <img  src="<%= question.questionPhoto %>" >  
                                             </div>
                                         <% } %>
-                                       
+                                         <input type="text" class="d-none" name="questionPhoto" value="<%= question.questionPhoto||"" %>">
                                         <textarea class="form-control answer" disabled name="Qtitle" id="Qtitle_<%= question.code %>" cols="30" rows="2"><%= question.title %> </textarea>
                                         <textarea class="form-control answer" disabled name="answer1" id="answer1_<%= question.code %>" cols="30" rows="2"><%= question.answer1 %> </textarea>
                                         <textarea class="form-control answer" disabled name="answer2" id="answer2_<%= question.code %>" cols="30" rows="2"><%= question.answer2 %> </textarea>

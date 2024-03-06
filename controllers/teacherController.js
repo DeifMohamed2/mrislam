@@ -1057,6 +1057,7 @@ const updateQuestion = (req, res) => {
     answer4,
     ranswer,
     code,
+    questionPhoto,
   } = req.body;
 
   // Find the index of the question with the matching code
@@ -1065,6 +1066,7 @@ const updateQuestion = (req, res) => {
   if (indexToUpdate !== -1) {
     // If a question with the matching code is found, update its properties
     quizQuestions[indexToUpdate] = {
+      questionPhoto:questionPhoto,
       title: Qtitle,
       answer1: answer1,
       answer2: answer2,
