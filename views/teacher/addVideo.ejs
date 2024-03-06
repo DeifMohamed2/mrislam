@@ -353,6 +353,29 @@
 
 
         <script>
+
+const getQueryStringParameter = (name) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+          };
+
+          if(getQueryStringParameter('error')=="true"){
+            let alertElement = document.getElementById('alert');
+          alertElement.style.display = 'block';
+          alertElement.classList.add('show');
+    
+          // Hide the alert after 20 seconds
+          setTimeout(function() {
+            alertElement.classList.remove('show');
+            alertElement.classList.add('hide');
+          }, 15000);
+          }
+
+  
+
+      document.querySelector('.BTNAlert').addEventListener('click', function() {
+        document.getElementById('alert').classList.add('hide');
+      });
             const socket = io();
 
             socket.on('upload_progress', (data) => {
@@ -404,28 +427,7 @@
                 }
             })
 
-            const getQueryStringParameter = (name) => {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-          };
-
-          if(getQueryStringParameter('error')=="true"){
-            let alertElement = document.getElementById('alert');
-          alertElement.style.display = 'block';
-          alertElement.classList.add('show');
-    
-          // Hide the alert after 20 seconds
-          setTimeout(function() {
-            alertElement.classList.remove('show');
-            alertElement.classList.add('hide');
-          }, 15000);
-          }
-
-  
-
-      document.querySelector('.BTNAlert').addEventListener('click', function() {
-        document.getElementById('alert').classList.add('hide');
-      });
+   
         </script>
 
  <!-- Include Dropzone JS -->
