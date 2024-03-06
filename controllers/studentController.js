@@ -277,6 +277,7 @@ const buyVideo = async (req, res) => {
   try {
     const videoId = req.params.videoId;
     const code = req.body.code;
+    console.log(videoId, code);
    const CodeData =  await Code.findOneAndUpdate
     ({ "Code": code , "isUsed": false , "codeType":"Video", "codeFor": videoId   }, 
     { "isUsed": true, "usedBy": req.userData.Code,  }, { new: true });
@@ -288,7 +289,7 @@ const buyVideo = async (req, res) => {
       res.send('Video not Bought');
       // res.redirect('/student/videos/lecture/'+videoId+'?error=true');
     }
-  }
+  } 
   catch (error ) {
     res.send(error.message);
   }
