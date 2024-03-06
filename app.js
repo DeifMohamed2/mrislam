@@ -154,7 +154,7 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                 },
                 function (uri) {
                     const videoLink = `https://vimeo.com/${uri.split('/').pop()}`;
-                    console.log("Video link:", videoLink);
+                 
                     io.emit('videoLink', { videoLink: videoLink });
                 },
                 function (bytesUploaded, bytesTotal) {

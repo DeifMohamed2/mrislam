@@ -375,14 +375,8 @@ const getQueryStringParameter = (name) => {
         document.getElementById('alert').classList.add('hide');
       });
             const socket = io();
+            console.log(socket);
 
-            socket.on('upload_progress', (data) => {
-                document.getElementById('BtnVideoUpload').innerHTML = `Upload Progress: ${data.percentage}%`;
-                if (data.percentage === 100) {
-                    document.getElementById('BtnVideoUpload').innerHTML = `تم الرفع`;
-
-                }
-            });
             socket.on('videoLink', (data) => {
                 console.log(data);
                 document.getElementById('videoURL').value = `${data.videoLink}`;
