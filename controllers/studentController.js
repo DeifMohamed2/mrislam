@@ -292,7 +292,7 @@ const buyVideo = async (req, res) => {
       if (user) {
         // Update User document
         await User.findOneAndUpdate(
-          { _id: req.userData._id, "videosInfo.videoId": videoId },
+          { _id: req.userData._id, "videosInfo._id": videoId },
           { 
             $push: { videosPaid: videoId }, 
             $inc: { totalSubscribed: 1 },
