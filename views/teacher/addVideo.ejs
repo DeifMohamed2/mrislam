@@ -168,7 +168,11 @@
                                             <select id="ChaptersNames" name="ChaptersIds"
                                                 class="Grade w-100 text-center" required>
                                           
-                        
+                                            <% }else { % >
+
+                                                    <select id="ChaptersNames" name="ChaptersIds" disabled
+                                                        class="Grade w-100 text-center" required>
+                                            <% } %>
 
                                                             <option value="">اختر اسم chapter </option>
 
