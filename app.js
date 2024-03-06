@@ -141,6 +141,7 @@ app.post("/teacher/uploadVideo", async (req, res) => {
 
             // Upload video to Vimeo and assign it to the specified folder
             client.upload(
+               
                 filePath,
                 {
                     name: uploadedFile.name,
@@ -152,20 +153,7 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                     }
                 },
                 function (uri) {
-                  // Handle successful upload
-                  console.log("Video uploaded successfully. URI:", uri); 
-                  // Get video metadata to obtain the link
-                  client.request(uri + '?fields=link', function (error, body, status_code, headers) {
-                      if (error) {
-                          console.error('Failed to get video link:', error);
-                          res.status(500).send('Failed to get video link.');
-                      } else {
-                          const videoLink = body.link;
-                          
-                          io.emit('videoLink', { videoLink: videoLink });
-                          res.send(excelBuffer); // Sending Excel file as response after video upload and link retrieval
-                      }
-                  });
+           
                 },
                 function (bytesUploaded, bytesTotal) {
                     // Progress callback
@@ -177,6 +165,19 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                     res.status(500).send('Failed to upload video.');
                 }
             );
+            setTimeout(() => {
+                client.request(uri + '?fields=link', function (error, body, status_code, headers) {
+                    if (error) {
+                        console.error('Failed to get video link:', error);
+                        res.status(500).send('Failed to get video link.');
+                    } else {
+                        const videoLink = body.link;
+                        console.log('Video link:', videoLink);
+                        io.emit('embedCode', { videoLink: videoLink });
+                        res.send(excelBuffer); // Sending Excel file as response after video upload and link retrieval
+                    }
+                });
+            }, 5000); 
         } catch (error) {
             console.error('Error:', error);
             res.status(500).send('Error uploading video.');
