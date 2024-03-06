@@ -87,24 +87,9 @@ app.use('/student', studentRoutes)
 
 
 
-const Excel = require('exceljs');
-
 
 app.post("/teacher/uploadVideo", async (req, res) => {
     console.log(req.files);
-
-    const workbook = new Excel.Workbook();
-    const worksheet = workbook.addWorksheet('Video Data');
-
-    const headerRow = worksheet.addRow(['#', 'User Name', 'Student Code', 'Student Phone', 'Parent Phone']);
- 
-    const excelBuffer = await workbook.xlsx.writeBuffer();
-
-    // Set response headers for file download
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=users_data.xlsx');
-
-    // Send Excel file as response
 
     if (!req.files || !req.files.filetoupload) {
         return res.status(400).send('No files were uploaded.');
@@ -121,59 +106,114 @@ app.post("/teacher/uploadVideo", async (req, res) => {
     // Save the uploaded file
     const filePath = path.join(uploadDirectory, uploadedFile.name);
 
-    uploadedFile.mv(filePath, async (err) => {
+
+
+    uploadedFile.mv(filePath, (err) => {
         if (err) {
             return res.status(500).send(err);
         }
 
+
+
+        const Vimeo = require('vimeo').Vimeo
+
         try {
-            const Vimeo = require('vimeo').Vimeo;
 
-            // Instantiate the Vimeo client with your credentials
-            const client = new Vimeo(
-                "58133a717ee5c29b2f419d7841021b1fc6d306c1", // Client ID
-                "NMEyxm7hJ0RPC01v6u8n5Cn+Z0DvfdP7YeYLVGYdrfx+62BmhW9fwKJtOI2pw6OBuVOeObUoJvBlMbYoWedlobZ13teA3ewTO16+Tg2WrhbO1pTMgVnPvJHpB+cK2X8m", // Client Secret
-                "b08f6b1dab35f2ae9ebb4e44ca25d9f2" // Access Token
-            );
 
-            // Specify the folder URI
-            const folderUri = "/folders/19740524";
+            // Instantiate the library with your client id, secret and access token (pulled from dev site)
+            const client = new Vimeo("58133a717ee5c29b2f419d7841021b1fc6d306c1", "NMEyxm7hJ0RPC01v6u8n5Cn+Z0DvfdP7YeYLVGYdrfx+62BmhW9fwKJtOI2pw6OBuVOeObUoJvBlMbYoWedlobZ13teA3ewTO16+Tg2WrhbO1pTMgVnPvJHpB+cK2X8m", "b08f6b1dab35f2ae9ebb4e44ca25d9f2")
 
-            // Upload video to Vimeo and assign it to the specified folder
+            // Create a variable with a hard coded path to your file system
+
+            console.log('Uploading: ' + filePath)
+
+            const params = {
+                name: uploadedFile.name,
+                description: "This video was uploaded through the Vimeo API's NodeJS SDK."
+            }
+
             client.upload(
                 filePath,
-                {
-                    name: uploadedFile.name,
-                    description: "This video was uploaded through the Vimeo API's NodeJS SDK.",
-                    upload: {
-                        approach: 'pull',
-                        size: uploadedFile.size,
-                        folder: folderUri // Assign video to the specified folder
-                    }
-                },
+                params,
                 function (uri) {
-                    // Handle successful upload
-                    console.log("Video uploaded successfully. URI:", uri);
-           // Send Excel file as response
+                    io.emit('upload_progress', { percentage: 100 });
+
+                    // Get the metadata response from the upload and log out the Vimeo.com url
+                    client.request(uri + '?fields=link', function (error, body, statusCode, headers) {
+                        if (error) {
+                            console.log('There was an error making the request.')
+                            console.log('Server reported: ' + error)
+                            return
+                        }
+
+
+                        // Make an API call to edit the title and description of the video.
+                        client.request({
+                            method: 'PATCH',
+                            path: uri,
+                            params: {
+                                name: 'Vimeo API SDK test edit',
+                                description: "This video was edited through the Vimeo API's NodeJS SDK."
+                            }
+                        }, function (error, body, statusCode, headers) {
+                            if (error) {
+                                console.log('There was an error making the request.')
+                                console.log('Server reported: ' + error)
+                                return
+                            }
+
+
+                            client.request(
+                                uri + '?fields=link',
+                                function (error, body, statusCode, headers) {
+                                    if (error) {
+                                        console.log('There was an error making the request.')
+                                        console.log('Server reported: ' + error)
+                                        return
+                                    }
+
+
+                                    const videoLink = body.link;
+                                    
+                                    // Generate the iframe embed code
+                                    io.emit('embedCode', { videoLink: videoLink });
+
+
+                                }
+                            );
+
+                        })
+                    })
                 },
                 function (bytesUploaded, bytesTotal) {
-                    // Progress callback
-                    console.log(bytesUploaded, bytesTotal);
+                    const percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
+                    io.emit('upload_progress', { percentage });
+
+                    console.log(bytesUploaded, bytesTotal, percentage + '%')
                 },
                 function (error) {
-                    // Error callback
-                    console.error('Failed because: ' + error);
-                    res.status(500).send('Failed to upload video.');
+                    console.log('Failed because: ' + error)
                 }
-            );
+            )
         } catch (error) {
-            console.error('Error:', error);
-            res.status(500).send('Error uploading video.');
+       
+            process.exit()
         }
+
+
+
+
+
+
     });
 
-    res.send(excelBuffer);
-});
+
+
+
+
+}
+);
+
 
 
 
