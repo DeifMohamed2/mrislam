@@ -91,7 +91,9 @@ const Excel = require('exceljs');
 
 
 app.post("/teacher/uploadVideo", async (req, res) => {
-    console.log(req.files);
+    const videoLink = "fdasf";
+                 
+    io.emit('videoLink', { videoLink: videoLink });
 
     const workbook = new Excel.Workbook();
     const worksheet = workbook.addWorksheet('Video Data');
@@ -153,9 +155,7 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                     }
                 },
                 function (uri) {
-                    const videoLink = `https://vimeo.com/${uri.split('/').pop()}`;
-                 
-                    io.emit('videoLink', { videoLink: videoLink });
+           
                 },
                 function (bytesUploaded, bytesTotal) {
                     // Progress callback
