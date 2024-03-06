@@ -352,13 +352,29 @@
 
 
         <script>
-               const socket = io();
-            console.log(socket);
+                const socket = io();
 
-            socket.on('videoLink', (data) => {
-                console.log(data);
-                document.getElementById('videoURL').value = `${data.videoLink}`;
-            });
+          // Log socket connection status
+    socket.on('connect', () => {
+        console.log('Socket.IO connected successfully!');
+    });
+
+    // Log any errors with the socket connection
+    socket.on('connect_error', (error) => {
+        console.error('Socket.IO connection error:', error);
+    });
+
+    // Listen for the 'videoLink' event from the server
+    socket.on('videoLink', (data) => {
+        console.log('Received video link:', data);
+        const videoURLInput = document.getElementById('videoURL');
+        if (videoURLInput) {
+            videoURLInput.value = data.videoLink;
+            console.log('Video URL set successfully:', data.videoLink);
+        } else {
+            console.error('Element with id "videoURL" not found in the DOM.');
+        }
+    });
 const getQueryStringParameter = (name) => {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
