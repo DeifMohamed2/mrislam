@@ -301,10 +301,10 @@ const buyVideo = async (req, res) => {
         );
         res.status(204).send();
       } else {
-        res.status(204).send()
+        res.status(301).send()
       }
     } else {
-      res.status(204).send();
+      res.status(301).send();
     }
   } catch (error) {
     res.send(error.message);

@@ -177,8 +177,16 @@
                   // If response status is 201 (Created), refresh the page
                   window.location.reload();
               } else {
-                  // Handle other response statuses here if needed
-                  console.log('Response status:', response.status);
+                
+                let alertElement = document.getElementById('alert');
+          alertElement.style.display = 'block';
+          alertElement.classList.add('show');
+    
+          // Hide the alert after 20 seconds
+          setTimeout(function() {
+            alertElement.classList.remove('show');
+            alertElement.classList.add('hide');
+          }, 40000);
               }
           })
           .catch(error => {
