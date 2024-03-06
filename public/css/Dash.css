@@ -22,6 +22,12 @@
   --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
+button:disabled{
+  cursor: not-allowed;
+  opacity: 0.5;
+
+}
+
 #alert-wrapper {
   position: fixed;
   top: 50%;
