@@ -288,7 +288,7 @@ const buyVideo = async (req, res) => {
 
     if (CodeData) {
       // Check if the videoId exists in videosInfo array before updating
-      const user = await User.findOne({ _id: req.userData._id, "videosInfo.videoId": videoId });
+      const user = await User.findOne({ _id: req.userData._id, "videosInfo._id": videoId });
       if (user) {
         // Update User document
         await User.findOneAndUpdate(
