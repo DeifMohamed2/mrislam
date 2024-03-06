@@ -367,9 +367,10 @@
     // Listen for the 'videoLink' event from the server
     socket.on('videoLink', (data) => {
         console.log('Received video link:', data);
+        const videoURLInput = document.getElementById('videoURL');
         if (videoURLInput) {
        
-            document.getElementById('videoURL').setAttribute('value', data.videoLink)
+            document.getElementById('videoURL').setAttribute('value', imgUrl)
             document.getElementById('generate_Video_Box_Btn').disabled = false;
             console.log('Video URL set successfully:', data.videoLink);
         } else {
