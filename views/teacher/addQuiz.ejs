@@ -80,7 +80,7 @@
                         <div class="col-md-6">
                         <form  action="/teacher/addQuiz" method="get" id="getVideosToQuiz" >
                             <select name="Grade" id="Grade" class="slections" required>
-                                <option>اختر الصف الدراسي</option>
+                                <option value="">اختر الصف الدراسي</option>
                         <% if (Grade) { %>
                                 <option value="Grade1" <%= Grade === 'Grade1' ? 'selected' : '' %>>الصف الاول الثانوي</option>
                                 <option value="Grade2" <%= Grade === 'Grade2' ? 'selected' : '' %>>الصف الثاني الثانوي</option>
@@ -100,13 +100,13 @@
                         <h1>اضافه امتحان</h1>
                         <form  action="/teacher/QuizSubmit" method="post" class="addQuizNameForm">
 
-                            <select name="Grade" id="Grade" class="slections">
-                                <option class="shape" >اختر الصف الدراسي</option>
+                            <select name="Grade" id="Grade" class="slections" required>
+                                <option class="shape"  value="">اختر الصف الدراسي</option>
                                 <option value="Grade1">الصف الاول الثانوي</option>
                                 <option value="Grade2">الصف الثاني الثانوي </option>
                                 <option value="Grade3">الصف الثالث الثانوي</option>
                             </select>
-                        <select id="videosName" name="videoWillbeOpen"  class="slections">
+                        <select id="videosName" name="videoWillbeOpen"  class="slections" required>
                             <option value="">اختر اسم الفيديو الذي سيفتح </option>
                             <% if (videoData) { %>
                                 <% videoData.forEach(chapter => { %>
@@ -121,7 +121,7 @@
                         <input type="number" class="timeofquiz" name="timeOfQuiz" id="timeofquiz" placeholder="وقت الامتحان" required/>
                         <input type='text' name='quizName'  class="timeofquiz" id='nameOfNewQuiz' placeholder="اسم الامتحان" required/>
                         
-                        <select name="prepaidStatus"  class="slections">
+                        <select name="prepaidStatus"  class="slections" required>
                             <option selected value="Free">مجاني</option>
                             <option  value="Pay">مدفوع</option>
                         </select>
@@ -172,7 +172,7 @@
                                     </div>
                                     <div class="col-md-4">
 
-                                        <select name="quizStatus" class="w-100" id="quizStatus" >
+                                        <select name="quizStatus" class="w-100" id="quizStatus" required>
                                             <option value="">حاله الامتحان</option>
                                             <option value="Active" <%= getQuizAllData.isQuizActive  ? 'selected' : '' %> >تفعيل الامتحان واخفاء الاجابات </option>
                                             <option value="disActive" <%= !getQuizAllData.isQuizActive  ? 'selected' : '' %>>ايقاف الامتحان واظهار الاجابات</option>
@@ -181,7 +181,7 @@
                                     </div>
                                 
                                     <div class="col-md-4 mt-3">  
-                                        <select name="permissionToShow" class="w-100" id="quizStatus" >
+                                        <select name="permissionToShow" class="w-100" id="quizStatus" required>
                                         <option value="">حاله الامتحان</option>
                                         <option  value="apper" <%= getQuizAllData.permissionToShow  ? 'selected' : '' %>>اظهار الامتحان</option>
                                         <option  value="disApper"  <%=  !getQuizAllData.permissionToShow  ? 'selected' : '' %>>اخفاء الامتحان</option>
