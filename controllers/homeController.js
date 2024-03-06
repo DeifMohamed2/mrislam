@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken')
 
 const  jwtSecret = process.env.JWTSECRET
 
-const { v4: uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require('uuid');
+const { use } = require("../routes/homeRoutes");
 
 
 
@@ -145,20 +146,20 @@ const public_Register_post = async (req, res) => {
 
   let quizesInfo = []
   let videosInfo = []
-  let userName 
+
   if (Grade ==="Grade1") {
-    await User.findOne({Grade:Grade,Code:653361}).then((result)=>{
+    await User.findOne({Grade:Grade,Code:779586}).then((result)=>{
       quizesInfo = result.quizesInfo
       videosInfo = result.videosInfo
-      userName = result.Username
+      
     })
   }else if(Grade ==="Grade2"){
-    await User.findOne({Grade:Grade,Code:660498}).then((result)=>{
+    await User.findOne({Grade:Grade,Code:942987}).then((result)=>{
       quizesInfo = result.quizesInfo
       videosInfo = result.videosInfo
     })
   }else if(Grade ==="Grade3"){
-    await User.findOne({Grade:Grade,Code:971001}).then((result)=>{
+    await User.findOne({Grade:Grade,Code:821921}).then((result)=>{
       quizesInfo = result.quizesInfo
       videosInfo = result.videosInfo
     })
@@ -170,7 +171,7 @@ const public_Register_post = async (req, res) => {
 
   try {
     const user =  new User({
-      Username:userName,
+      Username:Username,
       Password:hashedPassword,
       gov:gov,
       Markez:Markez,
