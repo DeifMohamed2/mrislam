@@ -80,7 +80,7 @@
                                       <% if (lecture.paymentStatus === "Pay") { %> 
                                           
                                         <% if (!lecture.isPaid) { %>
-                                          <form action="/student/buyVideo/<%= lecture._id %>" method="post">
+                                          <form action="/student/buyVideo/<%= lecture._id %>" method="post" id="l<%= lecture._id %>" onsubmit="handleFormSubmission(event)">
       
                                             <input type="text"  name="code" placeholder="ادخل الكود" required>
                                             <button type="submit" class="btn btn-primary" >استخدام الكود</button> 
@@ -161,6 +161,31 @@
     <script src="/assest/bootstrap.min.js"></script>
     <script src="/assest/bootstrap.bundle.min.js"></script>
     
+    <script>
+      function handleFormSubmission(event) {
+          event.preventDefault(); // Prevent default form submission
+  
+          const form = event.target; // Get the form element
+  
+          // Perform AJAX form submission
+          fetch(form.action, {
+              method: form.method,
+              body: new FormData(form)
+          })
+          .then(response => {
+              if (response.status === 204) {
+                  // If response status is 201 (Created), refresh the page
+                  window.location.reload();
+              } else {
+                  // Handle other response statuses here if needed
+                  console.log('Response status:', response.status);
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+      }
+  </script>
     <script>
       // Get the current URL path
       const currentPath = window.location.pathname;
