@@ -91,7 +91,7 @@ const Excel = require('exceljs');
 
 
 app.post("/teacher/uploadVideo", async (req, res) => {
-
+    console.log(req.files);
 
     const workbook = new Excel.Workbook();
     const worksheet = workbook.addWorksheet('Video Data');
@@ -141,7 +141,6 @@ app.post("/teacher/uploadVideo", async (req, res) => {
 
             // Upload video to Vimeo and assign it to the specified folder
             client.upload(
-               
                 filePath,
                 {
                     name: uploadedFile.name,
@@ -153,7 +152,9 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                     }
                 },
                 function (uri) {
-           
+                    // Handle successful upload
+                    console.log("Video uploaded successfully. URI:", uri);
+           // Send Excel file as response
                 },
                 function (bytesUploaded, bytesTotal) {
                     // Progress callback
@@ -165,18 +166,6 @@ app.post("/teacher/uploadVideo", async (req, res) => {
                     res.status(500).send('Failed to upload video.');
                 }
             );
-            setTimeout(() => {
-                client.request(uri + '?fields=link', function (error, body, status_code, headers) {
-                    if (error) {
-                        console.error('Failed to get video link:', error);
-                        res.status(500).send('Failed to get video link.');
-                    } else {
-                        const videoLink = body.link;
-                        console.log('Video link:', videoLink);
-                        io.emit('videoLink', { videoLink: videoLink });
-                    }
-                });
-            }, 5000); 
         } catch (error) {
             console.error('Error:', error);
             res.status(500).send('Error uploading video.');
