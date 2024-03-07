@@ -446,27 +446,47 @@ const getQueryStringParameter = (name) => {
  <script>
 
 
-   // Initialize Dropzone
-   Dropzone.options.myDropzone = {
-     paramName: "filetoupload", // Correct parameter name matching server-side code
-     maxFilesize: 5120, // MB
-     maxFiles: 1,
-     acceptedFiles: ".mp4",
-     dictDefaultMessage: "Drop MP4 files here or click to upload",
-     init: function () {
+// Initialize Dropzone
+Dropzone.options.myDropzone = {
+    paramName: "filetoupload",
+    maxFilesize: 5120, // MB
+    maxFiles: 1,
+    acceptedFiles: ".mp4",
+    dictDefaultMessage: "Drop MP4 files here or click to upload",
+    init: function () {
         let addButton = document.getElementById('generate_Video_Box_Btn');
 
         this.on("processing", function () {
-          // Disable the button when processing (upload starts)
-          addButton.disabled = true;
+            // Disable the button when processing (upload starts)
+            addButton.disabled = true;
         });
 
-       this.on("success", function (file, response) {
-       });
-       this.on("error", function (file, errorMessage) {
-       });
-     }
-   };
+        this.on("success", function (file, response) {
+            // Enable the button after successful upload
+            addButton.disabled = false;
+        });
+
+        this.on("error", function (file, errorMessage) {
+            // Enable the button after failed upload
+            addButton.disabled = false;
+            // Optionally, display an error message to the user
+            alert("Upload failed: " + errorMessage);
+        });
+
+        // Resume file upload if it was interrupted due to power loss
+        let resumedFile = sessionStorage.getItem("resumedFile");
+        if (resumedFile) {
+            this.addFile(resumedFile);
+            sessionStorage.removeItem("resumedFile");
+        }
+
+        // Save the file to session storage when added to the dropzone
+        this.on("addedfile", function (file) {
+            sessionStorage.setItem("resumedFile", file);
+        });
+    }
+};
+
  </script>
 
 <!-- Upload Photo To Firebase -->
