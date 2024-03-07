@@ -416,18 +416,25 @@ const getQueryStringParameter = (name) => {
                 }
             })
 
-
-            const paymentStatus = document.getElementById('paymentStatus')
-            paymentStatus.addEventListener('change', () => {
-                if (paymentStatus.value == "Pay") {
-
-                    document.getElementById('videoPrice').removeAttribute('disabled')
-
-                } else {
-                    document.getElementById('videoPrice').setAttribute('disabled', true)
-
+            const paymentStatus = document.getElementById('paymentStatus');
+    // Check if the element exists before adding the event listener
+    if (paymentStatus) {
+        paymentStatus.addEventListener('change', () => {
+            if (paymentStatus.value === "Pay") {
+                const videoPrice = document.getElementById('videoPrice');
+                if (videoPrice) {
+                    videoPrice.removeAttribute('disabled');
                 }
-            })
+            } else {
+                const videoPrice = document.getElementById('videoPrice');
+                if (videoPrice) {
+                    videoPrice.setAttribute('disabled', true);
+                }
+            }
+        });
+    } else {
+        console.error("Element with ID 'paymentStatus' not found.");
+    }
 
             const prerequisites = document.getElementById('prerequisites')
             prerequisites.addEventListener('change', () => {
