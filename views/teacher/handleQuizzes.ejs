@@ -182,6 +182,18 @@
 
 
      <script>
+           
+    const sdieMenu = document.querySelector("aside");
+    const menuBtn = document.querySelector("#menu-btn");
+    const closeBtn = document.querySelector("#close-btn");
+  
+    menuBtn.addEventListener("click", () => {
+      sdieMenu.style.display = "block";
+    });
+  
+    closeBtn.addEventListener("click", () => {
+      sdieMenu.style.display = "none";
+    });
         const getQuizzesNames = document.getElementById('getQuizzesNames')
         document.getElementById('Grade').addEventListener('change',()=>{
             getQuizzesNames.submit()

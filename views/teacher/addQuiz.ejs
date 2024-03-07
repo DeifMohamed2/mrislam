@@ -293,6 +293,21 @@
 
 
      <script>
+
+    
+   
+    const sdieMenu = document.querySelector("aside");
+    const menuBtn = document.querySelector("#menu-btn");
+    const closeBtn = document.querySelector("#close-btn");
+  
+    menuBtn.addEventListener("click", () => {
+      sdieMenu.style.display = "block";
+    });
+  
+    closeBtn.addEventListener("click", () => {
+      sdieMenu.style.display = "none";
+    });
+
         const addQuestionForm = document.getElementById('addQuestionForm');
         const message = document.getElementById('message');
         const showDataAdded = document.getElementById('show-data-Added');
@@ -300,18 +315,7 @@
         
 
   
-        // document.getElementById('Grade').addEventListener('change',()=>{
-        //     getVideosToQuiz.submit()
-        // })
 
-
-
-// const beforeUnloadListener = (event) => {
-//   event.preventDefault();
-
-//   return (event.returnValue = "هل تود مغادره الامتحان");
-// };
-// addEventListener("beforeunload", beforeUnloadListener, { capture: true });
 
         function openToUpdate(id){
             console.log(id)

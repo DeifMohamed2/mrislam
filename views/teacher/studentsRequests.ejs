@@ -279,6 +279,18 @@
     <script src="/assest/bootstrap.bundle.min.js"></script>
     <script src="/assest/bootstrap.min.js"></script>
    <script>
+       
+       const sdieMenu = document.querySelector("aside");
+    const menuBtn = document.querySelector("#menu-btn");
+    const closeBtn = document.querySelector("#close-btn");
+  
+    menuBtn.addEventListener("click", () => {
+      sdieMenu.style.display = "block";
+    });
+  
+    closeBtn.addEventListener("click", () => {
+      sdieMenu.style.display = "none";
+    });
         document.addEventListener("DOMContentLoaded", function() {
             // Find the modal element
             var modal = document.getElementById('exampleModal');
