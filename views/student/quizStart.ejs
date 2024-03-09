@@ -199,7 +199,11 @@
         console.error("Error parsing answers from localStorage:", error);
       }
 }
-      const quizData ='<%- JSON.stringify(quiz) %>'
+      let Questions ='<%- JSON.stringify(quiz.Questions) %>'
+      Questions = Questions.substring(1, Questions.length - 1);
+      const questionsCount = '<%- JSON.stringify(quiz.questionsCount) %>'
+      const quizID = '<%- JSON.stringify(quiz._id) %>'
+
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
@@ -247,7 +251,7 @@
       }   
 
       // Check if the current question number is equal to the total number of questions
-      if (qNumber == quizData.questionsCount) {
+      if (qNumber == questionsCount) {
         document.querySelector("#next").style.display = "none";
         document.querySelector("#finish").removeAttribute("disabled");
       } else if (qNumber == 1) {
@@ -262,9 +266,9 @@
     if (question==null) {
           document.getElementById("StartQuiz").addEventListener('click', () => {
           qNumber ++
-          window.location.href = `/student/quizStart/${quizData._id}?qNumber=${qNumber}`;
+          window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
 
-          localStorage.setItem("QuizID", `${quizData._id}`)
+          localStorage.setItem("QuizID", `${quizID}`)
 
        
           document.getElementById("mySidebar").style.display = "inline"
@@ -279,7 +283,7 @@
 
       if (qNumber >= 1 ) {
         
-        localStorage.setItem("QuizID", `${quizData._id}`)
+        localStorage.setItem("QuizID", `${quizID}`)
         updateQuestion(question) 
 
         document.getElementById("mySidebar").style.display = "inline"
@@ -337,7 +341,7 @@
           document.querySelector("#finish").removeAttribute("disabled");
           localStorage.setItem("answers", JSON.stringify(answers));
         }
-        window.location.href = `/student/quizStart/${quizData._id}?qNumber=${qNumber}`;
+        window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
         }, 100); // Delay of 100 milliseconds
     }
       // function next() {
@@ -364,7 +368,7 @@
       //     document.querySelector("#finish").removeAttribute("disabled");
       //     localStorage.setItem("answers", JSON.stringify(answers));
       //   }
-      //   window.location.href = `/student/quizStart/${quizData._id}?qNumber=${qNumber}`;
+      //   window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
       // }
       
       function prev() {
@@ -393,7 +397,7 @@
  
           localStorage.setItem("answers", JSON.stringify(answers));
         }
-        window.location.href = `/student/quizStart/${quizData._id}?qNumber=${qNumber}`;
+        window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
       }
 
   function finish (){
@@ -448,7 +452,7 @@ $.post("", requestData, (data, status) => {
 function calculateCorrectAnswers() {
   let numCorrect = 0;
   let c = 1;
-  quizData["Questions"].forEach(question => {
+  Questions.forEach(question => {
     
     answers[c] == +(question.ranswer) ? numCorrect++ : null;
     c++
