@@ -84,7 +84,7 @@
     <div id="mySidebar" class="sidebars" >
       <div class="questions" dir="ltr">
         <div class="row" id="sidebarQuestions">
-          <% Questions.forEach(quesion => { %>
+          <% quiz["Questions"].forEach(quesion => { %>
             <div class="col-3">
               <button onclick="window.location.href='/student/quizStart/<%=quiz._id%>?qNumber=<%= quesion.qNumber %>'"><%= quesion.qNumber %></button>
             </div>
@@ -159,7 +159,6 @@
 
     <script>
 
-
   // ================== side bar  ====== ///
 
       /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
@@ -198,16 +197,12 @@
         answers = JSON.parse(localStorage.getItem("answers"));
       } catch (error) {
         console.error("Error parsing answers from localStorage:", error);
-      } 
-        
+      }
 }
-
-      let Questions = '<%- JSON.stringify(Questions) %>';
-      Questions = Questions.substring(1, Questions.length - 1);
-      const questionsCount = JSON.parse('<%- JSON.stringify(questionsCount) %>');
+      const quizData ='<%- JSON.stringify(quiz) %>'
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
-      // console.log(Questions,quiz_id,questionsCount,question,userQuizInfo)
+
       
      // ==================  Set up variblaes and local storage  ====== ///
 
@@ -252,7 +247,7 @@
       }   
 
       // Check if the current question number is equal to the total number of questions
-      if (qNumber == questionsCount) {
+      if (qNumber == quizData.questionsCount) {
         document.querySelector("#next").style.display = "none";
         document.querySelector("#finish").removeAttribute("disabled");
       } else if (qNumber == 1) {
