@@ -715,10 +715,11 @@ const quiz_start = async (req, res) => {
       console.log(questionNumber);
     }
 
-    question.charAt(963)
-    console.log(   question.charAt(963));
+
     // Find the current question and escape special characters
     const question = quiz.Questions.find(q => q.qNumber.toString() === questionNumber.toString());
+    question.charAt(963)
+    console.log(   question.charAt(963));
     question.title = escapeSpecialCharacters(question.title);
     question.answer1 = escapeSpecialCharacters(question.answer1);
     question.answer2 = escapeSpecialCharacters(question.answer2);
