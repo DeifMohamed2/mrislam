@@ -156,9 +156,15 @@
     <script src="/assest/bootstrap.bundle.min.js"></script>
     <script src="/assest/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
 
     <script>
+                const socket = io();
 
+// Log socket connection status
+socket.on('connect', () => {
+console.log('Socket.IO connected successfully!');
+});
 
   // ================== side bar  ====== ///
 
@@ -202,8 +208,10 @@
         
 }
 
-      const quizData = JSON.parse('<%- JSON.stringify(quiz) %>');
-      console.log(quizData)
+socket.on('quiz', (data) => { 
+  const quizData = data.quiz
+});
+
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
