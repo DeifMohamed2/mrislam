@@ -84,7 +84,7 @@
     <div id="mySidebar" class="sidebars" >
       <div class="questions" dir="ltr">
         <div class="row" id="sidebarQuestions">
-          <% Questions.forEach(quesion => { %>
+          <% quiz["Questions"].forEach(quesion => { %>
             <div class="col-3">
               <button onclick="window.location.href='/student/quizStart/<%=quiz._id%>?qNumber=<%= quesion.qNumber %>'"><%= quesion.qNumber %></button>
             </div>
@@ -159,6 +159,7 @@
 
     <script>
 
+
   // ================== side bar  ====== ///
 
       /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
@@ -199,8 +200,6 @@
         console.error("Error parsing answers from localStorage:", error);
       }
 }
-
-      const Questions = JSON.parse('<%- JSON.stringify(Questions) %>');
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
@@ -449,7 +448,7 @@ $.post("", requestData, (data, status) => {
 function calculateCorrectAnswers() {
   let numCorrect = 0;
   let c = 1;
-  Questions.forEach(question => {
+  quizData["Questions"].forEach(question => {
     
     answers[c] == +(question.ranswer) ? numCorrect++ : null;
     c++
