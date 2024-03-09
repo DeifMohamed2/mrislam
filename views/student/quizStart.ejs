@@ -84,7 +84,7 @@
     <div id="mySidebar" class="sidebars" >
       <div class="questions" dir="ltr">
         <div class="row" id="sidebarQuestions">
-          <% quiz["Questions"].forEach(quesion => { %>
+          <% Questions.forEach(quesion => { %>
             <div class="col-3">
               <button onclick="window.location.href='/student/quizStart/<%=quiz._id%>?qNumber=<%= quesion.qNumber %>'"><%= quesion.qNumber %></button>
             </div>
