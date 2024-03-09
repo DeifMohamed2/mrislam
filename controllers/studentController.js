@@ -675,8 +675,7 @@ const escapeSpecialCharacters = (text) => {
     // If parsing succeeds, stringify it back and escape special characters
     const escapedText = JSON.stringify(parsedText, (key, value) => {
       if (typeof value === 'string') {
-        // Escape special characters and Arabic characters
-        return value.replace(/["\\]/g, '\\$&').replace(/[\u0600-\u06FF]/g, '\\u$&');
+        return value.replace(/["\\]/g, '\\$&');
       }
       return value;
     });
@@ -686,7 +685,6 @@ const escapeSpecialCharacters = (text) => {
     return text;
   }
 };
-
 
 const quiz_start = async (req, res) => {
   try {
