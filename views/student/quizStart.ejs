@@ -209,9 +209,9 @@ console.log('Socket.IO connected successfully!');
 
 socket.on('quiz', (data) => { 
   const quizData = data.quiz
-});
+}).then(()=>{
 
-      const question = JSON.parse('<%- JSON.stringify(question) %>');
+  const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
       
@@ -506,6 +506,8 @@ async function updateQuestion() {
   // Hide loader once the question is loaded
 }
 
+
+})
 
 
 
