@@ -202,8 +202,8 @@
       let Questions ='<%- JSON.stringify(quiz.Questions) %>'
       Questions = Questions.substring(1, Questions.length - 1);
       const questionsCount = '<%- JSON.stringify(quiz.questionsCount) %>'
-      const quizID = '<%- JSON.stringify(quiz._id) %>'
-
+      let quizID = '<%- JSON.stringify(quiz._id) %>'
+      quizID = quizID.substring(2, quizID.length - 2);
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
