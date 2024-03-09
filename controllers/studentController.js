@@ -689,7 +689,7 @@ const escapeSpecialCharacters = (text) => {
 const quiz_start = async (req, res) => {
   try {
     const quizId = req.params.quizId;
-    const quiz = await Quiz.findById(quizId,{questionsCount:1,Questions:1});
+    const quiz = await Quiz.findById(quizId);
     const userQuizInfo = req.userData.quizesInfo.find(q => q._id.toString() === quiz._id.toString());
     
     // Redirect if quiz or user info not found
