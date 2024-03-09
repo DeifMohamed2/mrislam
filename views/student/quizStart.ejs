@@ -200,7 +200,7 @@
         console.error("Error parsing answers from localStorage:", error);
       }
 }
-      const quizData = JSON.parse('<%- JSON.stringify(quiz) %>');
+const quizData = <%- JSON.stringify(quiz) %>;
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
