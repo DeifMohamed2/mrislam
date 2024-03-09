@@ -668,6 +668,11 @@ const quizWillStart = async (req, res) => {
   
 
 
+const escapeSpecialCharacters = (text) => {
+  // Escape double quotes and commas with backslashes
+  return text.replace(/["\\]/g, '\\$&');
+};
+
 const quiz_start = async (req, res) => {
   try {
     const quizId = req.params.quizId;
@@ -697,14 +702,20 @@ const quiz_start = async (req, res) => {
       console.log(questionNumber);
     }
 
-    // Find the current question
+    // Find the current question and escape special characters
     const question = quiz.Questions.find(q => q.qNumber.toString() === questionNumber.toString());
+    question.title = escapeSpecialCharacters(question.title);
+    question.answer1 = escapeSpecialCharacters(question.answer1);
+    question.answer2 = escapeSpecialCharacters(question.answer2);
+    question.answer3 = escapeSpecialCharacters(question.answer3);
+    question.answer4 = escapeSpecialCharacters(question.answer4);
 
     res.render("student/quizStart", { title: "Quiz", path: req.path, quiz, userData: req.userData, question, userQuizInfo });
   } catch (error) {
     res.send(error.message);
   }
 }
+
 
 
 
