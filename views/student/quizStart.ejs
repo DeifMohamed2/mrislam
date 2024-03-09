@@ -202,11 +202,12 @@
         
 }
 
-      const Questions = '<%- JSON.stringify(Questions) %>'
+      let Questions = '<%- JSON.stringify(Questions) %>';
+      Questions = QuestionsTE.substring(1, QuestionsTE.length - 1);
       const questionsCount = JSON.parse('<%- JSON.stringify(questionsCount) %>');
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
-      console.log(Quiestions,quiz_id,questionsCount,question,userQuizInfo)
+      // console.log(Questions,quiz_id,questionsCount,question,userQuizInfo)
       
      // ==================  Set up variblaes and local storage  ====== ///
 
