@@ -512,7 +512,7 @@ const ranking_get = async (req,res)=>{
     }
     
     else{
-    await User.find({},{Username:1,Code:1,totalScore:1}).sort({ totalscore: -1 })  
+    await User.find({},{Username:1,Code:1,totalScore:1}).sort({ totalscore: 1 })  
     .skip(perPage * page - perPage)
     .limit(perPage)
     .exec()
