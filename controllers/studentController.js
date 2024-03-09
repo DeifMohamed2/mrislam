@@ -490,9 +490,7 @@ const ranking_get = async (req,res)=>{
       console.log(userRank);
       const paginatedStudents = await User.find({ Code: searchInput }, { Username: 1, Code: 1, totalScore: 1 })
         .sort({ totalScore: 1 })
-        .skip(perPage * page - perPage)
-        .limit(perPage)
-        .exec();
+    
     
       const count = await User.countDocuments({});
     
