@@ -512,10 +512,8 @@ const ranking_get = async (req,res)=>{
     }
     
     else{
-    await User.find({},{Username:1,Code:1,totalScore:1}).sort({ totalscore: 1 })  
-    .skip(perPage * page - perPage)
-    .limit(perPage)
-    .exec()
+    await User.find({},{Username:1,Code:1,totalScore:1}).sort({ totalscore: -1 })  
+ 
     .then(async (result) => {
       const count = await Code.countDocuments({});
       const nextPage = parseInt(page) + 1;
