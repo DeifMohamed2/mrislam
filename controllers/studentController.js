@@ -725,7 +725,11 @@ const quiz_start = async (req, res) => {
     question.answer3 = escapeSpecialCharacters(question.answer3);
     question.answer4 = escapeSpecialCharacters(question.answer4);
 
-    res.render("student/quizStart", { title: "Quiz", path: req.path, quiz, userData: req.userData, question, userQuizInfo });
+    let Questions = quiz.Questions
+    let quizWithoutQuestions = { ...quiz };
+    delete quizWithoutQuestions.Questions;
+    
+    res.render("student/quizStart", { title: "Quiz", path: req.path, quiz:quizWithoutQuestions, userData: req.userData, question, Questions,userQuizInfo  });
   } catch (error) {
     res.send(error.message);
   }

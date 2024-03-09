@@ -200,6 +200,7 @@
       }
 }
       const quizData = JSON.parse('<%- JSON.stringify(quiz) %>');
+      const Questions = JSON.parse('<%- JSON.stringify(Questions) %>');
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
@@ -448,7 +449,7 @@ $.post("", requestData, (data, status) => {
 function calculateCorrectAnswers() {
   let numCorrect = 0;
   let c = 1;
-  quizData["Questions"].forEach(question => {
+  Questions.forEach(question => {
     
     answers[c] == +(question.ranswer) ? numCorrect++ : null;
     c++
