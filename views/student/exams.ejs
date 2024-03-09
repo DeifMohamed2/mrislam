@@ -78,52 +78,83 @@
                                 <td style="padding-left: 20px">لم يتم الدخول</td>
                               <% } %>  
 
-                              <% exams.forEach(function(exam) { %>
-                                <tr>
-                                  <% if (exam.isQuizActive) { %>
-                                    <% if (exam.prepaidStatus) { %>
-                                      <% if (exam.isPaid) { %>
-                                        <% if (!exam.quizUser.isEntered) { %>
+
+
+                              <% if (exam.isQuizActive) { %>
+
+                                <% if (exam.prepaidStatus) { %>
+
+                                    <% if (exam.isPaid) { %>
+                                      <% if (!exam["quizUser"]["isEnterd"]) { %>
                                           <td style="padding-left: 20px">
-                                            <button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'">دخول الامتحان</button>
+                                              <button button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'">دخول الامتحان</button>
                                           </td>
-                                        <% } else { %>
+
+                                        <% } else { %> 
                                           <td style="padding-left: 20px">
-                                            <button class="primary my-3">تم الدخول</button>
-                                          </td>
+                                            <button button class="primary my-3" >تم الدخول</button>
+                                        </td>
                                         <% } %>
-                                      <% } else { %>
+
+                                    <% } else {%>
+
+
+
                                         <td style="padding-left: 20px">
-                                          <form action="/student/buyQuiz/<%= exam._id %>" method="post">
+
+                                        <form action="/student/buyQuiz/<%= exam._id %>" method="post">
                                             <div class="col-12">
-                                              <input type="text" style="border-radius: 1rem;" name="code" placeholder="ادخل الكود" required>
+                                                <input type="text"   style="border-radius: 1rem;" name="code" placeholder="ادخل الكود" required>
+
                                             </div>
                                             <div class="col-12">
-                                              <button type="submit" class="primary my-2">استخدام الكود</button>
+                                                <button type="submit" class="primary my-2" >استخدام الكود</button>
                                             </div>
-                                          </form>
+                                        </form>
                                         </td>
-                                      <% } %>
-                                    <% } else { %>
-                                      <% if (!exam.quizUser.isEntered) { %>
-                                        <td style="padding-left: 20px">
-                                          <button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'">دخول الامتحان</button>
-                                        </td>
-                                 
-                                      <% } else { %>
-                                        <td style="padding-left: 20px">
-                                          <button class="primary my-3">تم الدخول</button>
-                                        </td>
-                                      <% } %>
-                                    <% } %>
-                                  <% } else { %>
-                                    <td style="padding-left: 20px">
-                                      <button class="primary my-3">مشاهده الاجابات</button>
+
+
+
+
+                                    <% } %>  
+                               
+
+                                <% } else{ %>
+                                  <% if ( !exam["quizUser"]["isEnterd"]) { %>
+
+                        
+                                      <td style="padding-left: 20px">
+                                        <button button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'"> دخول الامتحان</button>
                                     </td>
+                                  
+
+                                  <% } else { %> 
+                                    <td style="padding-left: 20px">
+                                      <button button class="primary my-3" >تم الدخول</button>
+                                  </td>
                                   <% } %>
-                                </tr>
-                              <% }) %>
-                              
+                                <% } %>    
+
+                              <% } else {  %>
+                                <td style="padding-left: 20px">
+                                    <button button class="primary my-3">مشاهده الاجابات</button>
+                                </td>
+                              <% } %>  
+
+                             
+
+
+                        
+                            </tr>
+
+
+
+                          <% } %>
+
+                        <% }) %>
+                      <% } %>
+
+                 
                     </tbody>
                   </table>
                 </div>
