@@ -156,14 +156,9 @@
     <script src="/assest/bootstrap.bundle.min.js"></script>
     <script src="/assest/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-                const socket = io();
 
-// Log socket connection status
-socket.on('connect', () => {
-console.log('Socket.IO connected successfully!');
-});
+    <script>
+
 
   // ================== side bar  ====== ///
 
@@ -207,13 +202,12 @@ console.log('Socket.IO connected successfully!');
         
 }
 
-socket.on('quiz', (data) => { 
-  const quizData = data.quiz
-}).then(()=>{
-
-  const question = JSON.parse('<%- JSON.stringify(question) %>');
+      const Quiestions = JSON.parse('<%- JSON.stringify(Questions) %>');
+      const quiz_id = JSON.parse('<%- JSON.stringify(quiz_id) %>');
+      const questionsCount = JSON.parse('<%- JSON.stringify(questionsCount) %>');
+      const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
-
+      console.log(Quiestions,quiz_id,questionsCount,question,userQuizInfo)
       
      // ==================  Set up variblaes and local storage  ====== ///
 
@@ -258,7 +252,7 @@ socket.on('quiz', (data) => {
       }   
 
       // Check if the current question number is equal to the total number of questions
-      if (qNumber == quizData.questionsCount) {
+      if (qNumber == questionsCount) {
         document.querySelector("#next").style.display = "none";
         document.querySelector("#finish").removeAttribute("disabled");
       } else if (qNumber == 1) {
@@ -506,8 +500,6 @@ async function updateQuestion() {
   // Hide loader once the question is loaded
 }
 
-
-})
 
 
 
