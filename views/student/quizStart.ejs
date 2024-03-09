@@ -336,7 +336,7 @@
         console.log(answers)
         localStorage.setItem("answers", JSON.stringify(answers));
     
-        if (qNumber === quizData.questionsCount) {
+        if (qNumber === questionsCount) {
           document.querySelector("#next").style.display = "none";
           document.querySelector("#finish").removeAttribute("disabled");
           localStorage.setItem("answers", JSON.stringify(answers));
@@ -411,7 +411,7 @@
             }
       localStorage.setItem("answers", JSON.stringify(answers));
       const numCorrect = calculateCorrectAnswers();
-      const totalQuestions = quizData.questionsCount;
+      const totalQuestions =questionsCount;
       const grade = (numCorrect / totalQuestions) * 100;
  
       const requestData = {
