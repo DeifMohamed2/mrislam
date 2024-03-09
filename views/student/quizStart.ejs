@@ -203,7 +203,7 @@
 }
 
       let Questions = '<%- JSON.stringify(Questions) %>';
-      Questions = Questions.substring(1, QuestionsTE.length - 1);
+      Questions = Questions.substring(1, Questions.length - 1);
       const questionsCount = JSON.parse('<%- JSON.stringify(questionsCount) %>');
       const question = JSON.parse('<%- JSON.stringify(question) %>');
       const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
