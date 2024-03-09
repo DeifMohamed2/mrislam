@@ -715,6 +715,7 @@ const quiz_start = async (req, res) => {
       console.log(questionNumber);
     }
 
+    question.charAt(963)
     // Find the current question and escape special characters
     const question = quiz.Questions.find(q => q.qNumber.toString() === questionNumber.toString());
     question.title = escapeSpecialCharacters(question.title);
