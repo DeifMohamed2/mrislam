@@ -669,8 +669,21 @@ const quizWillStart = async (req, res) => {
 
 
 const escapeSpecialCharacters = (text) => {
-  // Escape double quotes and commas with backslashes
-  return text.replace(/["\\]/g, '\\$&');
+  try {
+    // Attempt to parse the JSON string
+    const parsedText = JSON.parse(text);
+    // If parsing succeeds, stringify it back and escape special characters
+    const escapedText = JSON.stringify(parsedText, (key, value) => {
+      if (typeof value === 'string') {
+        return value.replace(/["\\]/g, '\\$&');
+      }
+      return value;
+    });
+    return escapedText;
+  } catch (error) {
+    // If parsing fails, return the original text
+    return text;
+  }
 };
 
 const quiz_start = async (req, res) => {
