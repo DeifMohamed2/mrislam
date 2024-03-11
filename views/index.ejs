@@ -155,7 +155,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.5/swiper-bundle.min.js" integrity="sha512-cEcJcdNCHLm3YSMAwsI/NeHFqfgNQvO0C27zkPuYZbYjhKlS9+kqO5hZ9YltQ4GaTDpePDQ2SrEk8gHUVaqxig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-
+<script>        window.addEventListener("load", (event) => {
+    console.log(event.composedPath())
+    setTimeout(() => {
+        document.querySelector('.bub.b').style.animation="up-down 5s ease-in-out infinite"
+        document.querySelector('.bub.c').style.animation="up-down 5s ease-in-out infinite"
+        document.querySelector('.bub.a').style.animation="up-down 5s ease-in-out infinite"
+    }, 2500)
+    });
+</script>
 </body>
 
 </html>
