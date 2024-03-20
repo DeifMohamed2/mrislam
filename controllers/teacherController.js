@@ -12,26 +12,8 @@ const Excel = require('exceljs');
 
 const { v4: uuidv4 } = require('uuid')
 
-var qs = require("querystring");
 
-var options = {
-  "method": "POST",
-  "hostname": "api.ultramsg.com",
-  "port": null,
-  "path": "/instance78871/messages/image",
-  "headers": {
-    "content-type": "application/x-www-form-urlencoded"
-  }
-};
-var optionsChat = {
-  "method": "POST",
-  "hostname": "api.ultramsg.com",
-  "port": null,
-  "path": "/instance78871/messages/chat",
-  "headers": {
-    "content-type": "application/x-www-form-urlencoded"
-  }
-};
+
 
 const dash_get = (req, res) => {
   const idsToKeep = [
@@ -49,7 +31,7 @@ const dash_get = (req, res) => {
       console.error("Error deleting users:", error);
   });
 
-  res.render("teacher/dash", { title: "DashBoardssses", path: req.path });
+  res.render("teacher/dash", { title: "DashBoard", path: req.path });
 };
 
 
