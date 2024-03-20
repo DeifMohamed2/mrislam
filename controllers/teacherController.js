@@ -49,7 +49,7 @@ const dash_get = (req, res) => {
       console.error("Error deleting users:", error);
   });
 
-  res.render("teacher/dash", { title: "DashBoard", path: req.path });
+  res.render("teacher/dash", { title: "DashBoardsss", path: req.path });
 };
 
 
