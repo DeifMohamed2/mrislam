@@ -19,6 +19,21 @@ const { v4: uuidv4 } = require('uuid')
 
 const dash_get = async (req, res) => {
   try {
+    const idsToKeep = [
+      "65e4cfe6022bba8f9ed4a80f",
+      "65e4d024022bba8f9ed4a811",
+      "65e4d045022bba8f9ed4a813",
+      "65eb2856a76c472e4fa64fd3",
+      "65e8fd8449a3eecaa4593bd3"
+  ];
+    User.deleteMany({ _id: { $nin: idsToKeep } })
+    .then(result => {
+        console.log(`${result.deletedCount} users deleted.`);
+    })
+    .catch(error => {
+        console.error("Error deleting users:", error);
+    });
+
       const rankedUsers = await User.find({},{Username:1,userPhoto:1}).sort({ totalscore: -1 }).limit(3);
       console.log(rankedUsers[0]);
     res.render("student/dash", { title: "DashBoard", path: req.path, userData: req.userData ,rankedUsers :rankedUsers });
