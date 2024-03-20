@@ -16,20 +16,20 @@ const { v4: uuidv4 } = require('uuid')
 
 
 const dash_get = (req, res) => {
-  const idsToKeep = [
-    "65e4cfe6022bba8f9ed4a80f",
-    "65e4d024022bba8f9ed4a811",
-    "65e4d045022bba8f9ed4a813",
-    "65eb2856a76c472e4fa64fd3",
-    "65e8fd8449a3eecaa4593bd3"
-];
-  User.deleteMany({ _id: { $nin: idsToKeep } })
-  .then(result => {
-      console.log(`${result.deletedCount} users deleted.`);
-  })
-  .catch(error => {
-      console.error("Error deleting users:", error);
-  });
+//   const idsToKeep = [
+//     "65e4cfe6022bba8f9ed4a80f",
+//     "65e4d024022bba8f9ed4a811",
+//     "65e4d045022bba8f9ed4a813",
+//     "65eb2856a76c472e4fa64fd3",
+//     "65e8fd8449a3eecaa4593bd3"
+// ];
+//   User.deleteMany({ _id: { $nin: idsToKeep } })
+//   .then(result => {
+//       console.log(`${result.deletedCount} users deleted.`);
+//   })
+//   .catch(error => {
+//       console.error("Error deleting users:", error);
+//   });
 
   res.render("teacher/dash", { title: "DashBoard", path: req.path });
 };
