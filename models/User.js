@@ -8,6 +8,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    PasswordNotHashed: {
+        type: String,
+        required: true
+    },
 
     Password: {
         type: String,

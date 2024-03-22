@@ -172,6 +172,7 @@ const public_Register_post = async (req, res) => {
   try {
     const user =  new User({
       Username:Username,
+      PasswordNotHashed:Password,
       Password:hashedPassword,
       gov:gov,
       Markez:Markez,

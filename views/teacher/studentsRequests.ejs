@@ -35,6 +35,10 @@
                     <label for="ModalUserphone">رقم هاتف الطالب : </label> 
                     <input type="tel" id="ModalUserphone" class="modal-input"name="phone" value="<%= modalData.phone %>"> <br>
                     
+                    <label for="ModalUserphone">  باسورد الطالب : </label> 
+                    <h2 id="ModalUserphone">value="<%= modalData.PasswordNotHashed || "هذا الطالب فعل حسابو قبل تحديث الباسورد الجديد" %>"</h2>
+                 <br>
+                    
                     <label for="ModalParentUserphone">رقم هاتف ولي امر الطالب : </label> 
                     <input type="tel" id="ModalParentUserphone" class="modal-input" name="parentPhone" value="<%= modalData.parentPhone %>"> <br>
                     
