@@ -777,7 +777,7 @@ const converStudentRequestsToExcel = async (req, res) => {
 const getSingleUserAllData = async (req, res) => {
   try {
     const studentID = req.params.studentID
-    await User.findOne({ '_id': studentID }, { Username: 1, Email: 1, gov: 1, Markez: 1, gender: 1, phone: 1, WhatsApp: 1, parentPhone: 1, place: 1, Code: 1, createdAt: 1, updatedAt: 1, subscribe: 1 })
+    await User.findOne({ '_id': studentID }, { Username: 1, Email: 1, gov: 1, Markez: 1, gender: 1, phone: 1, WhatsApp: 1, parentPhone: 1, place: 1, Code: 1, createdAt: 1, updatedAt: 1, subscribe: 1,PasswordNotHashed:1 })
       .then((result) => {
         res.render("teacher/studentsRequests",
           {
