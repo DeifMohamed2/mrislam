@@ -6,7 +6,7 @@ Welcome to our E-Learning platform! Below is a comprehensive guide to help you g
 Our E-Learning platform is meticulously crafted to provide a seamless educational journey. Leveraging cutting-edge technologies such as Node.js, Express, and MongoDB, we ensure scalability, performance, and reliability.
 
 ## Accessing the Platform
-To access the platform, simply visit our [website]((https://mrislamabdelhameed.com/). Whether you're a new user or a returning student, you can easily register for an account or log in to continue your learning journey.
+To access the platform, simply visit our [website](https://mrislamabdelhameed.com/). Whether you're a new user or a returning student, you can easily register for an account or log in to continue your learning journey.
 
 ## Features
 Our platform offers a plethora of features designed to enhance your learning experience:
