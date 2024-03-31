@@ -195,7 +195,7 @@ const public_Register_post = async (req, res) => {
       chaptersPaid:[],
       videosPaid: [],
       examsPaid: [],
-      // Add other fields as needed
+  
     });
     user
     .save()
