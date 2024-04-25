@@ -293,7 +293,6 @@
                         </form>
 
 
-
                         <div class="product-values row">
                             <div class="col-6">
                                 <div class="video-uploder">
@@ -308,9 +307,22 @@
                                 </div>
 
                             </div>
-
-
                             <div class="col-6">
+                                <div class="video-uploder">
+                                    <div class="upload">
+                                        <button class="warning BTN_Upload" type="button" id="BtnVideoUpload"
+                                            onclick="uploadVideo()">رفع فيديو <i
+                                                class="fa-solid fa-upload me-2"></i></button>
+                                        <input type="file" id="selbtnVideo"><br>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- <div class="col-6">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <form action="/teacher/uploadVideo" class="dropzone" id="my-dropzone" >
@@ -329,7 +341,7 @@
                         
 
 
-                            </div>
+                            </div> -->
 
 
                         </div>
@@ -461,7 +473,69 @@ const getQueryStringParameter = (name) => {
    
         </script>
 
- <!-- Include Dropzone JS -->
+
+<script >
+    const BTNvideoUpload = document.getElementById("BtnVideoUpload");
+
+const apiKey = '9ba760b8f0d3e456f532ae9998704e6b31f5cb3044cbb120b3c36dc8cf97f9b3';
+const projectId = 'l2u1k47ox3'; 
+let embded 
+
+
+function uploadVideo() {
+    BTNvideoUpload.setAttribute("disabled",true)
+    const fileInput = document.getElementById('selbtnVideo');
+    // const statusDiv = document.getElementById('status');
+    
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        // statusDiv.textContent = 'Please select a file to upload.';
+        return;
+    }
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('project_id', projectId);
+  
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://upload.wistia.com', true);
+      xhr.timeout = 6993130000; // Set the timeout to 60 seconds (adjust as needed)
+
+      xhr.setRequestHeader('Authorization', `Bearer ${apiKey}`);
+  
+      xhr.upload.addEventListener('progress', (e) => {
+          if (e.lengthComputable) {
+            
+              const percentComplete = (e.loaded / e.total) * 100;
+              BTNvideoUpload.innerHTML = percentComplete.toFixed(2)+"%";
+          }
+      });
+  
+      xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+              if ( xhr.status >= 200) {
+                  const responseData = JSON.parse(xhr.responseText);
+                  console.log(`Video uploaded successfully! Video ID: ${responseData.hashed_id}`) ;
+                   embded = `<div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_${responseData.hashed_id} seo=true videoFoam=true" style="height:100%;position:relative;width:100%"><div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"><img src="https://fast.wistia.com/embed/medias/${responseData.hashed_id}/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" /></div></div></div>`
+                   console.log(embded)
+                   document.getElementById('videoURL').setAttribute('value', embded)
+                   BTNvideoUpload.innerHTML = "تم الرفع"
+                //    uploadAllDataBtn.removeAttribute("disabled")
+              } else {
+                alert(`Error uploading video. Status: ${xhr.status}`) 
+              }
+          }
+      };
+  
+      xhr.send(formData);
+    
+
+}
+
+
+</script>
+
+ <!-- Include Dropzone JS
  <script>
 
 
@@ -506,7 +580,7 @@ Dropzone.options.myDropzone = {
     }
 };
 
- </script>
+ </script> -->
 
 <!-- Upload Photo To Firebase -->
 <script type="module">
