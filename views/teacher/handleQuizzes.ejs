@@ -144,7 +144,7 @@
                                                 <td><%= counter %></td>
                                                 <td><%=student.Username %></td>
                                                 <td><%=student.Code %></td>
-                                                <td><%=student['quizesInfo'][0].solvedAt ||"1/10"%></td>
+                                                <td><%=student['quizesInfo'][0].solvedAt ? new Date(student['quizesInfo'][0].solvedAt).toLocaleString() : ""%></td>
                                                 <td><%=student['quizesInfo'][0].questionsCount %> / <%=  student['quizesInfo'][0].Score %> </td>
                                                 <form action="/teacher/changeEnterToQuiz/<%= student['quizesInfo'][0]['_id'] %>?UserId=<%= student._id %>" method="post">
                                                     <div class="text-center">

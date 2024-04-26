@@ -1344,7 +1344,7 @@ const getStudentsDataOfQuiz = async (req, res) => {
       },
       {
         $sort: {
-          "createdAt": 1
+          "quizesInfo.Score": -1
         }
       }
     ])
@@ -1372,6 +1372,7 @@ const getStudentsDataOfQuiz = async (req, res) => {
 
   }
 }
+
 
 const searchForUserInQuiz = async (req, res) => {
   const { searchBy, searchInput } = req.query
