@@ -1064,6 +1064,7 @@ const updateQuestion = (req, res) => {
     quizQuestions[indexToUpdate] = {
       questionPhoto:questionPhoto,
       title: Qtitle,
+      qNumber : quizQuestions[indexToUpdate].qNumber,
       answer1: answer1,
       answer2: answer2,
       answer3: answer3,

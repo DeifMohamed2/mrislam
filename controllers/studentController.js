@@ -791,20 +791,14 @@ const review_Answers = async (req,res)=>{
     const quiz = await Quiz.findById(quizId);
     const userQuizInfo = req.userData.quizesInfo.find(q => q._id.toString() === quiz._id.toString());
     const quizData = req.body;
-    let answers = quizData.answers;
-    const score = quizData.score;
 
 
-    // // Redirect if quiz or user info not found
-    // if ( (userQuizInfo.isEnterd && !userQuizInfo.inProgress)) {
-    //   return res.redirect('/student/exams');
-    // }
 
-        // // Redirect if user didn't pay for the quiz
-        // const isPaid = req.userData.examsPaid.includes(quizId);
-        // if (quiz.prepaidStatus && !isPaid) {
-        //   return res.redirect('/student/exams');
-        // }
+    // Redirect if quiz or user info not found
+    if ( quiz.isQuizActive || !quiz.permissionToShow ) {
+      return res.redirect('/student/exams');
+    }
+
 
     // Parse query parameter for question number
     let questionNumber = parseInt(req.query.qNumber) || 1;
@@ -826,28 +820,6 @@ const review_Answers = async (req,res)=>{
 
 
     res.render("student/reviewAnswers",{ title: "Quiz", path: req.path, quiz, userData: req.userData, question, userQuizInfo });
-
-    // if (userQuizInfo.isEnterd && !userQuizInfo.inProgress) {
-    //   return res.redirect('/student/exams');
-    // }
-
-    // // Update user's quiz info
-    // User.findOneAndUpdate(
-    //   {_id: req.userData._id, 'quizesInfo._id': quizObjId},
-    //   { 
-    //     $set: {
-    //       'quizesInfo.$.answers': answers,
-    //       'quizesInfo.$.Score': +score,
-    //       'quizesInfo.$.inProgress': false,
-    //       'quizesInfo.$.isEnterd': true,
-    //       'quizesInfo.$.solvedAt':  Date.now(),
-    //       'quizesInfo.$.endTime': 0
-    //     },
-    //     $inc: {"totalScore": +score , "totalQuestions": +quiz.questionsCount} 
-    //   }
-    // ).then(async (result) => {
-    //   res.redirect('/student/exams');
-    // });
 
     
   } catch (error) {
