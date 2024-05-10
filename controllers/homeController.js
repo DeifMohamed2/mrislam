@@ -5,10 +5,6 @@ const jwt = require('jsonwebtoken')
 
 const  jwtSecret = process.env.JWTSECRET
 
-const { v4: uuidv4 } = require('uuid');
-const { use } = require("../routes/homeRoutes");
-
-
 
 
 // check Login 

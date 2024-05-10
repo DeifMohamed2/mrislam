@@ -783,6 +783,79 @@ const quizFinish = async(req,res)=>{
 
 
 
+const review_Answers = async (req,res)=>{
+  try {
+
+    const quizId = req.params.quizId;
+    const quizObjId = new mongoose.Types.ObjectId(quizId);
+    const quiz = await Quiz.findById(quizId);
+    const userQuizInfo = req.userData.quizesInfo.find(q => q._id.toString() === quiz._id.toString());
+    const quizData = req.body;
+    let answers = quizData.answers;
+    const score = quizData.score;
+
+
+    // // Redirect if quiz or user info not found
+    // if ( (userQuizInfo.isEnterd && !userQuizInfo.inProgress)) {
+    //   return res.redirect('/student/exams');
+    // }
+
+        // // Redirect if user didn't pay for the quiz
+        // const isPaid = req.userData.examsPaid.includes(quizId);
+        // if (quiz.prepaidStatus && !isPaid) {
+        //   return res.redirect('/student/exams');
+        // }
+
+    // Parse query parameter for question number
+    let questionNumber = parseInt(req.query.qNumber) || 1;
+    if (questionNumber > quiz.questionsCount) {
+      questionNumber = quiz.questionsCount;
+      console.log(questionNumber);
+    }
+
+
+    // Find the current question and escape special characters
+    const question = quiz.Questions.find(q => q.qNumber.toString() === questionNumber.toString());
+
+    question.title = escapeSpecialCharacters(question.title);
+    question.answer1 = escapeSpecialCharacters(question.answer1);
+    question.answer2 = escapeSpecialCharacters(question.answer2);
+    question.answer3 = escapeSpecialCharacters(question.answer3);
+    question.answer4 = escapeSpecialCharacters(question.answer4);
+
+
+
+    res.render("student/reviewAnswers",{ title: "Quiz", path: req.path, quiz, userData: req.userData, question, userQuizInfo });
+
+    // if (userQuizInfo.isEnterd && !userQuizInfo.inProgress) {
+    //   return res.redirect('/student/exams');
+    // }
+
+    // // Update user's quiz info
+    // User.findOneAndUpdate(
+    //   {_id: req.userData._id, 'quizesInfo._id': quizObjId},
+    //   { 
+    //     $set: {
+    //       'quizesInfo.$.answers': answers,
+    //       'quizesInfo.$.Score': +score,
+    //       'quizesInfo.$.inProgress': false,
+    //       'quizesInfo.$.isEnterd': true,
+    //       'quizesInfo.$.solvedAt':  Date.now(),
+    //       'quizesInfo.$.endTime': 0
+    //     },
+    //     $inc: {"totalScore": +score , "totalQuestions": +quiz.questionsCount} 
+    //   }
+    // ).then(async (result) => {
+    //   res.redirect('/student/exams');
+    // });
+
+    
+  } catch (error) {
+    res.send(error.message);
+  }
+}
+
+
 
 // ================== END quiz  ====================== //
 
@@ -849,6 +922,7 @@ module.exports = {
   quizWillStart,
   quiz_start,
   quizFinish,
+  review_Answers,
 
   settings_get,
   settings_post,

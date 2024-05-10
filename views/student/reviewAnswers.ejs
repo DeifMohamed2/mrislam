@@ -18,6 +18,8 @@
       transform: rotate(360deg);
    }
 }
+
+
 </style>
 
 
@@ -80,13 +82,17 @@
       data-bs-target="#failModal">
       Launch demo modal
     </button>
+
+
+
+
     <!-- <div id="preloader"></div>  -->
     <div id="mySidebar" class="sidebars" >
       <div class="questions" dir="ltr">
         <div class="row" id="sidebarQuestions">
-          <% quiz["Questions"].forEach(quesion => { %>
+        <%   quiz["Questions"].forEach(quesion => {  %> 
             <div class="col-3">
-              <button onclick="window.location.href='/student/quizStart/<%=quiz._id%>?qNumber=<%= quesion.qNumber %>'"><%= quesion.qNumber %></button>
+              <button onclick="window.location.href='/student/reviewAnswers/<%=quiz._id%>?qNumber=<%= quesion.qNumber %>'"><%= quesion.qNumber %></button>
             </div>
           <% }) %>
 
@@ -110,21 +116,18 @@
         <button class="openbtn" id="closeNav" onclick="closeNav()" style="display: none;"><i
             class="fa-solid fa-angles-left"></i></button>
       </div>
+
+    
+  
       <div class="quiz-info mx-auto " id="quiz-info">
         <% if (quiz) { %>
-
-   
-
-
-
-
-
+          <div class="progress mb-3" role="progressbar" style="height: 40%;" aria-label="Warning striped example" aria-valuenow="<%= (userQuizInfo['Score'] / quiz.questionsCount  )*100 %>" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped bg-warning " style="width: '<%= (userQuizInfo['Score'] / quiz.questionsCount  )*100 %>%' ; color:black; padding: 0.4rem; font-weight: bolder; font-size: 15px;"  > <%=Math.floor((userQuizInfo['Score'] / quiz.questionsCount) * 100)%>%</div>
+          </div>
+          
           <div class="quizStart" >
             <div class="row">
 
-              <div class=" col">
-                <div class="time"> <span id="minutes"></span> : <span id="seconds"></span> </div>
-              </div>
               <div class="col ">
                 <div class="questionsLeft float-end"><span id="QuestionInProgress">1</span> / <span>
                     <%= quiz.questionsCount %>
@@ -139,7 +142,7 @@
 
             <div class="TraverseBtn">
               <button id="next" class="next"> التالي &raquo; </button>
-              <button id="finish" class="finish" disabled> انهاء الامتحان</button>
+              <button  onclick="window.location.href='/student/exams'" > رجوع الي الصفحه الرئيسيه </button>
               <button id="prev" class="inactive prev"> &laquo; السابق </button>
             </div>
 
@@ -149,6 +152,7 @@
     
 
       </div>
+
     </div>
 
 
@@ -157,7 +161,11 @@
     <script src="/assest/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+
+
     <script>
+
 
   // ================== side bar  ====== ///
 
@@ -188,60 +196,13 @@
 
       // ==================  Set up variblaes and local storage  ========= ///
 
-      let answers = [];
       let qNumber= null
 
-// Load answers from localStorage
-    if (localStorage.getItem("answers")) {
-      try {
-        answers = JSON.parse(localStorage.getItem("answers"));
-      } catch (error) {
-        console.error("Error parsing answers from localStorage:", error);
-      }
-}
-      let Questions ='<%- JSON.stringify(quiz.Questions) %>'
-      Questions = Questions.substring(1, Questions.length - 1);
-      const questionsCount = '<%- JSON.stringify(quiz.questionsCount) %>'
-      let quizID = '<%- JSON.stringify(quiz._id) %>'
-      quizID = quizID.substring(2, quizID.length - 2);
-      const question = JSON.parse('<%- JSON.stringify(question) %>');
-      const userQuizInfo = JSON.parse('<%- JSON.stringify(userQuizInfo) %>');
 
-      
-     // ==================  Set up variblaes and local storage  ====== ///
 
-      // ==================  Timer  ====== ///
-
-       // Calculate endTime based on current time plus the duration
-          const endTime = new Date(userQuizInfo.endTime);
-
-        // Start a setInterval function to update the remaining time
-        let intervalId = setInterval(() => {
-    const remainingTime = endTime - Date.now();
-    const minutes = Math.floor(remainingTime / 60000);
-    const seconds = Math.floor((remainingTime % 60000) / 1000);
-
-    // Format minutes and seconds with leading zeros if needed
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(seconds).padStart(2, '0');
-
-    // Update the DOM with formatted time
-    document.getElementById("minutes").innerText = formattedMinutes;
-    document.getElementById("seconds").innerText = formattedSeconds;
-
-    if (remainingTime <= 0) {
-        clearInterval(intervalId);
-        finish();
-    }
-}, 1000); // Update every second
-
-        if (endTime - Date.now() <= 0 ) {
-          clearInterval(intervalId);
-          finish ()
-        }
-      // ==================  Timer  ====== ///
-
-        
+      const quizData = <%- JSON.stringify(quiz) %>;
+      const question =<%- JSON.stringify(question) %>;
+      const userQuizInfo = <%- JSON.stringify(userQuizInfo) %>;
 
 
  
@@ -251,9 +212,8 @@
       }   
 
       // Check if the current question number is equal to the total number of questions
-      if (qNumber == questionsCount) {
+      if (qNumber == quizData.questionsCount) {
         document.querySelector("#next").style.display = "none";
-        document.querySelector("#finish").removeAttribute("disabled");
       } else if (qNumber == 1) {
         document.querySelector("#prev").style.display = "none";
       }
@@ -266,9 +226,9 @@
     if (question==null) {
           document.getElementById("StartQuiz").addEventListener('click', () => {
           qNumber ++
-          window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
+          window.location.href = `/student/reviewAnswers/${quizData._id}?qNumber=${qNumber}`;
 
-          localStorage.setItem("QuizID", `${quizID}`)
+          localStorage.setItem("QuizID", `${quizData._id}`)
 
        
           document.getElementById("mySidebar").style.display = "inline"
@@ -283,7 +243,7 @@
 
       if (qNumber >= 1 ) {
         
-        localStorage.setItem("QuizID", `${quizID}`)
+        localStorage.setItem("QuizID", `${quizData._id}`)
         updateQuestion(question) 
 
         document.getElementById("mySidebar").style.display = "inline"
@@ -313,64 +273,31 @@
       
       })
 
-      document.getElementById("finish").addEventListener('click', () => {
-        setTimeout(() => {
-          finish();
-        }, 1);
-      })
 
       function next() {
         setTimeout(() => {
-            const selectedOption = document.querySelector('input[name="answer"]:checked');
-            if (selectedOption) {
-                answers[qNumber] = Number(selectedOption.value);
-                questionSec.innerHTML = `     <div class="spinner mx-auto mb-4"></div>`
+          const selectedOption = document.querySelector(
+          'input[name="answer"]:checked'
+        );
+        console.log(selectedOption)
+        if (selectedOption) {
+          questionSec.innerHTML = `     <div class="spinner mx-auto mb-4"></div>`
 
-            } else {
-              questionSec.innerHTML = `     <div class="spinner mx-auto mb-4"></div>`
-                console.log("No option selected!");
-            }
+
+        }else{
+          questionSec.innerHTML = `     <div class="spinner mx-auto mb-4"></div>`
+
+        }
         
         document.querySelector("#prev").style.display = "inline";
         qNumber++
-        console.log(answers)
-        localStorage.setItem("answers", JSON.stringify(answers));
-    
-        if (qNumber === questionsCount) {
+        if (qNumber === quizData.questionsCount) {
           document.querySelector("#next").style.display = "none";
-          document.querySelector("#finish").removeAttribute("disabled");
-          localStorage.setItem("answers", JSON.stringify(answers));
         }
-        window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
+        window.location.href = `/student/reviewAnswers/${quizData._id}?qNumber=${qNumber}`;
         }, 100); // Delay of 100 milliseconds
     }
-      // function next() {
-      //   // save the answer
- 
-      //   const selectedOption = document.querySelector(
-      //     'input[name="answer"]:checked'
-      //   );
-      //   if (selectedOption) {
-      //     answers[qNumber] = Number(selectedOption.value);
-      //     console.log("Fasfasfasfasf")
 
-      //   }
-
-
-      //   // questionSec.innerHTML = `     <div class="spinner mx-auto mb-4"></div>`
-      //   document.querySelector("#prev").style.display = "inline";
-      //   qNumber++
-      //   console.log(answers)
-      //   localStorage.setItem("answers", JSON.stringify(answers));
-    
-      //   if (qNumber === quizData.questionsCount) {
-      //     document.querySelector("#next").style.display = "none";
-      //     document.querySelector("#finish").removeAttribute("disabled");
-      //     localStorage.setItem("answers", JSON.stringify(answers));
-      //   }
-      //   window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
-      // }
-      
       function prev() {
 
           const selectedOption = document.querySelector(
@@ -378,7 +305,6 @@
         );
         console.log(selectedOption)
         if (selectedOption) {
-          answers[qNumber] = Number(selectedOption.value);
           questionSec.innerHTML = `     <div class="spinner mx-auto mb-4"></div>`
 
 
@@ -390,81 +316,20 @@
 
         document.querySelector("#prev").style.display = "inline";
         qNumber--
-        localStorage.setItem("answers", JSON.stringify(answers));
-
+  
         if (qNumber ==1) {
           document.querySelector("#prev").style.display = "none";
  
-          localStorage.setItem("answers", JSON.stringify(answers));
         }
-        window.location.href = `/student/quizStart/${quizID}?qNumber=${qNumber}`;
+        window.location.href = `/student/reviewAnswers/${quizData._id}?qNumber=${qNumber}`;
       }
 
-  function finish (){
-      const selectedOption = document.querySelector(
-              'input[name="answer"]:checked'
-            );
-            if (selectedOption) {
-              answers[qNumber] = Number(selectedOption.value);
-          
-
-            }
-      localStorage.setItem("answers", JSON.stringify(answers));
-      const numCorrect = calculateCorrectAnswers();
-      const totalQuestions =questionsCount;
-      const grade = (numCorrect / totalQuestions) * 100;
- 
-      const requestData = {
-        grade: grade,
-        score: numCorrect,
-        answers : answers,
-
- 
-   
-      };
-
-      console.log(requestData)
-      if (grade >= 50 ) {
-        document.getElementById("successModalGrade").innerText = numCorrect;
-        document.getElementById("successModalTotalQuestions").innerText = totalQuestions;
-        document.getElementById("successmodelbtn").click();
-      } else {
-        document.getElementById("failModalGrade").innerText = numCorrect;
-        document.getElementById("failModalTotalQuestions").innerText = totalQuestions;
-        document.getElementById("failmodelbtn").click();
-      }
-    
-  
-
-$.post("", requestData, (data, status) => {
-  localStorage.clear("answers");
-  window.location.href = `/student/exams`
-});
-
-
-
-}
-
-
-
-
-
-function calculateCorrectAnswers() {
-  let numCorrect = 0;
-  let c = 1;
-  Questions.forEach(question => {
-    
-    answers[c] == +(question.ranswer) ? numCorrect++ : null;
-    c++
-    });
-
-  return numCorrect;
-}
 
 
 async function updateQuestion() {
   // Show loader
 
+  const userAnswer = userQuizInfo['answers'][question.qNumber]
   let questionSec = document.getElementById("questionSec");
  
       // document.getElementById("questionSec").style.display = "inline";
@@ -475,23 +340,54 @@ async function updateQuestion() {
     <img src="${question.questionPhoto}" >
     </div>
     <h1 class="questionSec" id="titleOfQuestion">${question.title}</h1>
-    <input type="radio" name="answer" class="RD form-check-input" value="1" id="answer1" ${answers[qNumber] === 1 ? "checked" : ""}><label for="answer1" class="text">${await question.answer1}</label><br/>
-    <input type="radio" name="answer" class="RD form-check-input" value="2" id="answer2" ${answers[qNumber] === 2 ? "checked" : ""}><label for="answer2" class="text">${await question.answer2}</label><br/>
-    <input type="radio" name="answer" class="RD form-check-input" value="3" id="answer3" ${answers[qNumber] === 3 ? "checked" : ""}><label for="answer3" class="text">${await question.answer3}</label><br/>
-    <input type="radio" name="answer" class="RD form-check-input" value="4" id="answer4" ${answers[qNumber] === 4 ? "checked" : ""}><label for="answer4" class="text">${await question.answer4}</label><br/>
+    <input disabled type="radio" name="answer" class="RD form-check-input" value="1" id="answer1" ${question.ranswer === '1' ? 'checked class= "RD form-check-input green-answer"' : ""}><label for="answer1" class="text">${await question.answer1}</label><br/>
+    <input disabled type="radio" name="answer" class="RD form-check-input" value="2" id="answer2" ${question.ranswer === '2' ? 'checked class= "RD form-check-input green-answer"' : ""}><label for="answer2" class="text">${await question.answer2}</label><br/>
+    <input disabled type="radio" name="answer" class="RD form-check-input" value="3" id="answer3" ${question.ranswer === '3' ?'checked class= "RD form-check-input green-answer"': ""}><label for="answer3" class="text">${await question.answer3}</label><br/>
+    <input disabled type="radio" name="answer" class="RD form-check-input" value="4" id="answer4" ${question.ranswer === '4' ? 'checked class= "RD form-check-input green-answer"' : ""}><label for="answer4" class="text">${await question.answer4}</label><br/>
       `;
     }else{
       questionSec.innerHTML = `
-
     <h1 class="questionSec" id="titleOfQuestion">${question.title}</h1>
-    <input type="radio" name="answer" class="RD form-check-input" value="1" id="answer1" ${answers[qNumber] === 1 ? "checked" : ""}><label for="answer1" class="text">${await question.answer1}</label><br/>
-    <input type="radio" name="answer" class="RD form-check-input" value="2" id="answer2" ${answers[qNumber] === 2 ? "checked" : ""}><label for="answer2" class="text">${await question.answer2}</label><br/>
-    <input type="radio" name="answer" class="RD form-check-input" value="3" id="answer3" ${answers[qNumber] === 3 ? "checked" : ""}><label for="answer3" class="text">${await question.answer3}</label><br/>
-    <input type="radio" name="answer" class="RD form-check-input" value="4" id="answer4" ${answers[qNumber] === 4 ? "checked" : ""}><label for="answer4" class="text">${await question.answer4}</label><br/>
-      `;
+    <div class="form-check">
+        <input disabled type="radio" name="answer" id="answer1" ${userAnswer == '1' ? "checked" : ""}>
+        <label for="answer1"  ${question.ranswer == '1'  ? `${question.ranswer == '1' && userAnswer == '1'  ? ` class= " text right-answer" ` :` class= " text green-answer" ` }`   : ""}">
+          ${await question.answer1}
+          ${question.ranswer == '1' && userAnswer == '1' ? '<i class="fas fa-check-circle" style="float: right; font-size: 1.2rem;"></i>' : `${userAnswer == '1' ? '<i class="fas fa-times-circle" style="float: right; font-size: 1.2rem;"></i>' : ''}`}
+          
+          </label><br/>
+    </div>
+    <div class="form-check">
+        <input disabled type="radio" name="answer" id="answer2" ${userAnswer == '2' ? "checked" : ""}>
+        <label for="answer2"  ${question.ranswer == '2'  ? `${question.ranswer == '2' && userAnswer == '2'  ? ` class= " text right-answer" ` :` class= " text green-answer" ` }`   : ""}">
+          ${await question.answer2}
+          ${question.ranswer == '2' && userAnswer == '2' ? '<i class="fas fa-check-circle" style="float: right; font-size: 1.2rem;"></i>' : `${userAnswer == '2' ? '<i class="fas fa-times-circle" style="float: right; font-size: 1.2rem;"></i>' : ''}`}
+
+          </label><br/>
+    </div>
+    <div class="form-check">
+        <input disabled type="radio" name="answer" id="answer3" ${userAnswer == '3' ? "checked" : ""}>
+        <label for="answer3"  ${question.ranswer == '3'  ? `${question.ranswer == '3' && userAnswer == '3'  ? ` class= " text right-answer" ` :` class= " text green-answer" ` }`   : ""}">
+          ${await question.answer3}
+          ${question.ranswer == '3' && userAnswer == '3' ? '<i class="fas fa-check-circle" style="float: right; font-size: 1.2rem;"></i>' : `${userAnswer == '3' ? '<i class="fas fa-times-circle" style="float: right; font-size: 1.2rem;"></i>' : ''}`}
+
+          </label><br/>
+    </div>
+    <div class="form-check">
+        <input disabled type="radio" name="answer" id="answer4" ${userAnswer == '4' ? "checked" : ""}>
+        <label for="answer4"  ${question.ranswer == '4'  ? `${question.ranswer == '4' && userAnswer == '4'  ? ` class= " text right-answer" ` :` class= " text green-answer" ` }`   : ""}">
+          ${await question.answer4}
+          ${question.ranswer == '4' && userAnswer == '4' ? '<i class="fas fa-check-circle" style="float: right; font-size: 1.2rem;"></i>' : `${userAnswer == '4' ? '<i class="fas fa-times-circle" style="float: right; font-size: 1.2rem;"></i>' : ''}`}
+
+          </label><br/>
+    </div>
+`;
+
+
+      
     }
       
-      
+
+    console.log(question.ranswer , userAnswer);
     
 
 

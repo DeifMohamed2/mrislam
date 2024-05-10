@@ -2284,6 +2284,7 @@ font-weight: bolder;
   overflow: hidden;
   cursor: pointer;
 }
+
 .quiz-info input[type="radio"]:checked + label  {
   background-color:#f75742f3;  
   color: rgb(226, 226, 226);
@@ -2507,12 +2508,13 @@ font-weight: bolder;
   border-radius: 2rem !important;
   background-color: #fff !important;
 }
-.green-answer{
-  background-color:  #009765 !important;;
+.green-answer {
+  background-color:  #01b176 !important;
+  color: #fff !important;
 }
 .right-answer {
   background: rgb(221,76,57);
-  background: linear-gradient(131deg, rgba(221,76,57,1) 50%, rgba(0,151,101,1) 50%);
+  background: linear-gradient(131deg, rgba(221,76,57,1) 50%, #01b176 50%);
 }
 /* .quiz-info .red-answer input[type="radio"]:checked +  label  {
   background-color:  #c21f09 !important;

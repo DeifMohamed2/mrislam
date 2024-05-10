@@ -122,11 +122,19 @@
                                 <% } else{ %>
                                   <% if ( !exam["quizUser"]["isEnterd"]) { %>
 
-                        
+                                     <% if (exam["quizUser"]["inProgress"]) { %>
+                                      
+                                  
                                       <td style="padding-left: 20px">
-                                        <button button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'"> دخول الامتحان</button>
+                                        <button button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'">  تكمله الامتحان</button>
                                     </td>
                                   
+                                    <% } else { %> 
+
+                                      <td style="padding-left: 20px">
+                                        <button button class="primary my-3" onclick="window.location.href='/student/quiz/<%= exam._id %>'">دخول الامتحان</button>
+                                    </td>
+                                    <% } %>
 
                                   <% } else { %> 
                                     <td style="padding-left: 20px">
@@ -137,7 +145,7 @@
 
                               <% } else {  %>
                                 <td style="padding-left: 20px">
-                                    <button button class="primary my-3">مشاهده الاجابات</button>
+                                  <button  class="primary my-3" onclick="window.location.href='/student/reviewAnswers/<%= exam._id %>?qNumber=1'"> مشاهدة اجاباتي</button>
                                 </td>
                               <% } %>  
 

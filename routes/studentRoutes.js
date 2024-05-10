@@ -105,6 +105,9 @@ router.get("/quizWillStart/:quizId",authenticateUser, studentController.quizWill
 
 router.post("/quizStart/:quizId",authenticateUser, studentController.quizFinish);
 
+router.get("/reviewAnswers/:quizId",authenticateUser, studentController.review_Answers);
+
+
 // ==================  end quiz  ====================== //
 
 // ================== Profile  ====================== //
