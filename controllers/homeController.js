@@ -143,23 +143,23 @@ const public_Register_post = async (req, res) => {
   let quizesInfo = []
   let videosInfo = []
 
-  // if (Grade ==="Grade1") {
-  //   await User.findOne({Grade:Grade,Code:926273}).then((result)=>{
-  //     quizesInfo = result.quizesInfo
-  //     videosInfo = result.videosInfo
+  if (Grade ==="Grade1") {
+    await User.findOne({Grade:Grade,Code:926273}).then((result)=>{
+      quizesInfo = result.quizesInfo
+      videosInfo = result.videosInfo
       
-  //   })
-  // }else if(Grade ==="Grade2"){
-  //   await User.findOne({Grade:Grade,Code:870726}).then((result)=>{
-  //     quizesInfo = result.quizesInfo
-  //     videosInfo = result.videosInfo
-  //   })
-  // }else if(Grade ==="Grade3"){
-  //   await User.findOne({Grade:Grade,Code:707541}).then((result)=>{
-  //     quizesInfo = result.quizesInfo
-  //     videosInfo = result.videosInfo
-  //   })
-  // }
+    })
+  }else if(Grade ==="Grade2"){
+    await User.findOne({Grade:Grade,Code:870726}).then((result)=>{
+      quizesInfo = result.quizesInfo
+      videosInfo = result.videosInfo
+    })
+  }else if(Grade ==="Grade3"){
+    await User.findOne({Grade:Grade,Code:707541}).then((result)=>{
+      quizesInfo = result.quizesInfo
+      videosInfo = result.videosInfo
+    })
+  }
 
 
 
