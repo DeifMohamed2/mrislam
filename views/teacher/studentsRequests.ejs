@@ -35,9 +35,8 @@
                     <label for="ModalUserphone">رقم هاتف الطالب : </label> 
                     <input type="tel" id="ModalUserphone" class="modal-input"name="phone" value="<%= modalData.phone %>"> <br>
                     
-                    <label for="ModalUserphone">  باسورد الطالب : </label> 
-                    <h2 id="ModalUserphone">value="<%= modalData.PasswordNotHashed || "هذا الطالب فعل حسابو قبل تحديث الباسورد الجديد" %>"</h2>
-                 <br>
+                    <label for="ModalUserPassword">  باسورد الطالب : </label> 
+                    <h3 id="ModalUserPassword" ><%= modalData.PasswordNotHashed %></h3>
                     
                     <label for="ModalParentUserphone">رقم هاتف ولي امر الطالب : </label> 
                     <input type="tel" id="ModalParentUserphone" class="modal-input" name="parentPhone" value="<%= modalData.parentPhone %>"> <br>
@@ -66,6 +65,32 @@
         </div>
     </div>
     </div>
+
+<% } %>
+
+<% if (modalDelete) { %>
+    <div class="modal fade show" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel2"> مسح طالب</h2>
+                    <i class="fa-solid fa-xmark close-modal" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <form action="/teacher/studentsRequests/delete/<%= modalDelete %>" method="post">
+    
+                <div class="modal-body">
+                  <h2>  هل تريد مسح الطالب نهائياً ؟</h2>
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" window.location.herf="/teacher/studentsRequests">Close</button>
+                    <button type="submit"  class="btn btn-primary" data-bs-dismiss="modal">Yes </button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+
 
 <% } %>
 
@@ -126,27 +151,8 @@
         
                         <div class=" col-md-6 ">
                             <div class="left" style="margin-top: 0.2rem;">
-                                <div class="top">
-                                    <button id="menu-btn">
-                                        <span class="material-icons-sharp">
-                                            menu
-                                        </span>
-                                    </button>
-                                    <div class="theme-toggler">
-                                        <span class="material-icons-sharp active">
-                                            light_mode
-                                        </span>
-                                        <span class="material-icons-sharp">
-                                            dark_mode
-                                        </span>
-                                    </div>
-                                    <div class="profile">
-                                        <div class="info">
-                                            <p>اهلا بك،<b id="Tname"> </b></p>
-                                        </div>
-                               
-                                    </div>
-                                </div>
+                                <%- include("./partials/top.ejs") %> 
+
                             </div>
                         </div>
                     </div>
@@ -229,6 +235,9 @@
                                                      <td class="enter">
                                                         <button  ><a href="/teacher/studentsRequests/<%=student._id  %>" class="primary" >View Data<i class="fa-solid fa-pen-to-square me-3"></i></a> </button> 
                                                     </td>
+                                                     <td class="enter">
+                                                        <button ><a href="/teacher/studentsRequests/delete/<%=student._id  %>" class="btn btn-outline-danger" style="color: rgb(255, 255, 255); border: 2px solid rgb(211, 0, 0); border-radius: 30px; padding: .7rem;" >Delete Account<i class="fa-solid fa-trash me-3" ></i></a> </button> 
+                                                    </td>
                                                 </tr>
 
                                             <% counter++; %>
@@ -283,24 +292,25 @@
     <script src="/assest/bootstrap.bundle.min.js"></script>
     <script src="/assest/bootstrap.min.js"></script>
    <script>
-       
-       const sdieMenu = document.querySelector("aside");
-    const menuBtn = document.querySelector("#menu-btn");
-    const closeBtn = document.querySelector("#close-btn");
-  
-    menuBtn.addEventListener("click", () => {
-      sdieMenu.style.display = "block";
-    });
-  
-    closeBtn.addEventListener("click", () => {
-      sdieMenu.style.display = "none";
-    });
         document.addEventListener("DOMContentLoaded", function() {
             // Find the modal element
-            var modal = document.getElementById('exampleModal');
-            // Show the modal
-            var modalBootstrap = new bootstrap.Modal(modal);
-            modalBootstrap.show();
+            const deleteModal = <%- JSON.stringify(modalDelete) %>;
+            const DataModal = <%- JSON.stringify(modalData) %>;
+
+            if (deleteModal) {
+                var modal2 = document.getElementById('exampleModal2');
+                // Show the modal
+                var modalBootstrap2 = new bootstrap.Modal(modal2);
+                modalBootstrap2.show();
+            }else{
+                var modal = document.getElementById('exampleModal');
+                // Show the modal
+                var modalBootstrap = new bootstrap.Modal(modal);
+                modalBootstrap.show();
+            
+            }
+          
+      
         });
     </script>
 

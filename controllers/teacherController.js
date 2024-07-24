@@ -688,6 +688,7 @@ const studentsRequests_get = async (req, res) => {
             title: "StudentsRequests",
             path: req.path,
             modalData: null,
+            modalDelete :null,
             studentsRequests: result,
             studentPlace: StudentPlace,
             Grade: grade,
@@ -715,6 +716,7 @@ const searchForUser = async (req, res) => {
             title: "StudentsRequests",
             path: req.path,
             modalData: null,
+            modalDelete :null,
             studentsRequests: result,
             studentPlace: 'All',
             Grade: "Grade1",
@@ -784,6 +786,7 @@ const getSingleUserAllData = async (req, res) => {
             title: "StudentsRequests",
             path: req.path,
             modalData: result,
+            modalDelete:null,
             studentsRequests: null,
             studentPlace: 'All',
             Grade: "Grade1",
@@ -829,7 +832,48 @@ const updateUserData = async (req, res) => {
 };
 
 
+const confirmDeleteStudent = async (req, res) => {
+  try {
+    const studentID = req.params.studentID;
+    res.render("teacher/studentsRequests",
+      {
+        title: "StudentsRequests",
+        path: req.path,
+        modalData: null,
+        modalDelete:studentID ,
+        studentsRequests: null,
+        studentPlace: 'All',
+        Grade: "Grade1",
+        isSearching: false,
+        nextPage: null,
+        previousPage: null // Calculate previous page
+      });
+  }
 
+
+  catch (error) {
+  }
+
+}
+
+
+const DeleteStudent = async (req, res) => {
+  try {
+    const studentID = req.params.studentID;
+    if (!studentID) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    if(studentID =="668138aeebc1138a4277c47a" || studentID =='668138edebc1138a4277c47c' || studentID =='66813909ebc1138a4277c47e'){
+      return res.status(400).json({ error: 'You can not delete this user' });
+      
+    }
+    await User.findByIdAndDelete(studentID).then((result) => {
+      res.status(200).redirect('/teacher/studentsRequests');
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 // =================================================== END Student Requests ================================================ // 
 
 
@@ -1955,7 +1999,8 @@ module.exports = {
   handelCodes_get,
   Codes_get,
   studentsRequests_get,
-
+  confirmDeleteStudent,
+  DeleteStudent,
   addQuestion,
   deleteQuestion,
   updateQuestion,
