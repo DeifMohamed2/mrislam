@@ -1657,9 +1657,10 @@ const getChptersOrVideosData = async (req, res) => {
   }
 }
 
+
 const createSpecificCodes = async (req, res) => {
   try {
-    req.io.emit('creatingCodes', { nCodesFinished: 0 ,numberOfCodes:0 });
+    req.io.emit('creatingSCodes', { nCodesFinished: 0 ,numberOfCodes:0 });
 
     const { IDOfVideoOrChapter, numberOfCodes } = req.body;
 
@@ -1690,7 +1691,7 @@ const createSpecificCodes = async (req, res) => {
       });
 
       c++;
-      req.io.emit('creatingCodes', { nCodesFinished: c ,numberOfCodes:numberOfCodes });
+      req.io.emit('creatingSCodes', { nCodesFinished: c ,numberOfCodes:numberOfCodes });
       const row = worksheet.addRow([c, code]);
       // Apply alternating row colors
       if (c % 2 === 0) {
@@ -1749,7 +1750,7 @@ const createGeneralCodes = async (req, res) => {
       });
 
       c++;
-      req.io.emit('creatingCodes', { code: c});
+      req.io.emit('creatingCodes', {nCodesFinished: c ,numberOfCodes:numberOfCodes });
       const row = worksheet.addRow([c, code]);
       // Apply alternating row colors
       if (c % 2 === 0) {
@@ -1777,6 +1778,7 @@ const createGeneralCodes = async (req, res) => {
 
   }
 }
+
 
 function generateCode() {
   // Generate a UUID
