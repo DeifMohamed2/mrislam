@@ -1549,8 +1549,7 @@ const changeEnterToQuiz = async (req, res) => {
   try {
     const quizID = req.params.quizID
     const UserId = req.query.UserId
-    const userQuizScore = req.userData['quizesInfo'].find((quiz) => quiz._id == QuizId).Score
-    console.log(userQuizScore)
+    console.log(quizID, UserId)
     User.findOneAndUpdate(
       {
         _id: UserId,
